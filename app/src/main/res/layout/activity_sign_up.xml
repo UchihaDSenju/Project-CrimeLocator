@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbars="none"
     android:background="@drawable/bg1"
-    tools:context=".MainActivity">
+    tools:context=".SignUpAct">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,11 +18,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="61dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="20dp">
 
 
             <ImageView
-                android:id="@+id/img2"
+                android:id="@+id/topLogoImage"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:src="@drawable/back"
@@ -32,28 +32,58 @@
                 app:layout_constraintVertical_bias="0.878" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
+            android:id="@+id/signUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Login"
+            android:text="Sign up"
             android:gravity="center"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-black"
             android:textSize="35dp"
-            android:layout_marginTop="5dp"/>
-
+            android:layout_marginTop="10dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt1"
+            android:id="@+id/usernameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="User Name"
+            app:endIconMode="clear_text"
+            app:helperTextTextColor="#4CAF50"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:counterTextColor="@color/design_default_color_secondary_variant"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="#4CAF50"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:maxLength="20"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Email"
-            app:counterMaxLength="35"
+            app:placeholderText=" ex:abc123@gmail.com"
+            app:placeholderTextColor="#656363"
             app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
             android:layout_marginTop="20dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="35"
+            app:counterTextColor="@color/design_default_color_secondary_variant"
             android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black">
+            app:boxStrokeColor="#4CAF50">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
@@ -61,49 +91,91 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_email_24"
                 android:fontFamily="sans-serif"
-
-
                 android:inputType="textEmailAddress"
                 android:maxLength="35"
                 android:singleLine="true"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-
-
-
-
-        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edtxt2"
+            android:id="@+id/numberLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Mobile Number "
+            app:counterEnabled="true"
+            app:helperTextTextColor="#4CAF50"
+            app:prefixText="+91"
+            app:prefixTextColor="@color/black"
+            app:counterMaxLength="10"
+            app:endIconMode="clear_text"
+            app:counterTextColor="@color/design_default_color_secondary_variant"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="#4CAF50">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_call_24"
+                android:fontFamily="sans-serif"
+                android:inputType="number"
+                android:id="@+id/number"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Password"
+            app:counterEnabled="true"
             app:counterMaxLength="10"
+            app:counterTextColor="@color/design_default_color_secondary_variant"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="#4CAF50"
+            app:errorEnabled="true"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/black"
             android:layout_marginTop="20dp"
             android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black">
+            app:boxStrokeColor="#4CAF50">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/password"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:fontFamily="sans-serif"
+                android:inputType="textPassword"
+
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPasswordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Confirm Password"
+            app:passwordToggleEnabled="true"
+            app:helperTextTextColor="#4CAF50"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:counterTextColor="@color/design_default_color_secondary_variant"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="#4CAF50">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:fontFamily="sans-serif"
                 android:inputType="textPassword"
-                android:maxLength="10"
-                android:singleLine="true"
+                android:id="@+id/confirmPassword"
+
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
@@ -111,38 +183,21 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="10dp">
+
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/progBar"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                />
-        </LinearLayout>
+                android:visibility="gone"/></LinearLayout>
         <Button
-            android:id="@+id/signInBtn"
-
+            android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:backgroundTint="#171717"
-            android:text="SIGN In"
-
+            android:text="register"
             android:textSize="20dp"
             app:cornerRadius="30dp" />
-        <TextView
-            android:id="@+id/forgotPasswordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:textColor="@color/purple_500"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,34 +208,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't have an Account ?"
+                android:text="Already Have Account ?"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif"
                 android:textSize="14sp"/>
             <TextView
-                android:id="@+id/signUpBtn"
+                android:id="@+id/textsignin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="Sign In"
                 android:textColor="@color/design_default_color_error"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginStart="10dp"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/adminLogin"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="77dp"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="#4CAF50"
-            android:text="admin login"
-            android:textSize="20dp"
-            app:cornerRadius="20dp"
-            app:icon="@drawable/ic_baseline_admin_panel_settings_24"
-            app:iconTint="#ffffff" />
     </LinearLayout>
 
 </ScrollView>
