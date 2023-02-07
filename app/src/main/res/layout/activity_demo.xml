@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btn3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context=".demo">
+
+    <Button
+        android:id="@+id/btn1"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="362dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#4CAF50"
+        android:text="complain"
+        android:textColorLink="#8BDC2E"
+        android:textSize="24dp"
+        app:cornerRadius="50sp"
+        app:icon="@drawable/ic_baseline_file_copy_24"
+        app:iconGravity="textStart"
+        app:iconTint="#E6E5E5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.065"
+        app:rippleColor="#022E04"
+        app:strokeColor="#8BC34A" />
+
+    <Button
+        android:id="@+id/btn2"
+
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="164dp"
+        android:text="Pending CaseS"
+        android:textColor="#E91E63"
+        android:textSize="24dp"
+        app:icon="@drawable/ic_baseline_pending_actions_24"
+        app:iconGravity="textStart"
+        app:iconTint="#E91E63"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#F6A4C0"
+        app:strokeColor="#E91E63"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/btn4"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:layout_width="119dp"
+        android:layout_height="74dp"
+        android:backgroundTint="#CF1051"
+        android:text="help"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        app:cornerRadius="50dp"
+        app:icon="@drawable/ic_baseline_help_24"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863"
+        app:rippleColor="#A6053C" />
+
+    <Button
+        android:id="@+id/btn5"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="375dp"
+        android:layout_height="58dp"
+        android:text="near by police station"
+        android:textColor="#987303"
+        android:textSize="23sp"
+        app:icon="@drawable/ic_baseline_local_police_24"
+        app:iconGravity="textStart"
+        app:iconTint="#6C5205"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.638"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.416"
+        app:rippleColor="#F3E4B6" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
