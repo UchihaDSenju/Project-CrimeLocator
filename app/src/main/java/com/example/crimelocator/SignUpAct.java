@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class SignUpAct extends AppCompatActivity {
     Button register;
-    TextView txtsignin;
+    TextView singInBtn;
    // FirebaseAuth mAuth;
     ProgressBar progressBar;
 //
@@ -52,27 +52,27 @@ public class SignUpAct extends AppCompatActivity {
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
         TextInputLayout numberLayout=findViewById(R.id.numberLayout);
-        TextInputEditText confirmPassword =findViewById(R.id.confirmPassword);  //confirm password
-        TextInputEditText password=findViewById(R.id.password);   //password
-        TextInputEditText number=findViewById(R.id.number);   // mobile
-        TextInputEditText email = findViewById(R.id.email);    // Email
-        TextInputEditText username =findViewById(R.id.username); // username
+        TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
+        TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
+        TextInputEditText numberField =findViewById(R.id.number);   // mobile
+        TextInputEditText emailField = findViewById(R.id.email);    // Email
+        TextInputEditText usernameField =findViewById(R.id.username); // usernameField
         register=findViewById(R.id.register);
-        txtsignin=findViewById(R.id.textsignin);
+        singInBtn =findViewById(R.id.textsignin);
         progressBar=findViewById(R.id.progBar);
-        String user = username.getText().toString();
+        String user = usernameField.getText().toString();
 
-        number.addTextChangedListener(new TextWatcher() {
+        numberField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String pass = number.getText().toString();
-                if(pass.length()>10){
-                    number.setError("Enter Less than 10 numbers");//red
-                    number.setText("");
+                String numberFieldText = numberField.getText().toString();
+                if(numberFieldText.length()>10){
+                    numberField.setError("Enter Less than 10 numbers");//red
+                    numberField.setText("");
                 }
-                else if (pass.length()==10){
+                else if (numberFieldText.length()==10){
                     numberLayout.setHelperText("verified");//color
                 }
                 else {
@@ -80,125 +80,147 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {}});
 
-        password.addTextChangedListener(new TextWatcher() {
+        passwordField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //Changes Before the TextField has been changed
+            }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String pass=charSequence.toString();
-                if(pass.length() >=8 && pass.length()<=10){
+                String passwordFieldText =charSequence.toString();
+                if(passwordFieldText.length() >=8 && passwordFieldText.length()<=10){
                     Pattern pattern=Pattern.compile("[^a-zA-Z0-9]");
-                    Matcher matcher=pattern.matcher(pass);
-                    boolean ispswcntnspchar=matcher.find();
-                    if(ispswcntnspchar){
+                    Matcher matcher=pattern.matcher(passwordFieldText);
+                    boolean passwordOkay=matcher.find();
+                    if(passwordOkay){
                         passwordLayout.setHelperText("Strong Password");
-                        passwordLayout.setError("");}
+                        passwordLayout.setError("");
+                    }
                     else {
                         passwordLayout.setHelperText("");
-                        passwordLayout.setError("Weak Password.Include 1 special character(eg:#@*)");}}
-                else if(pass.length() < 8){
+                        passwordLayout.setError("Weak Password.Include 1 special character(eg:#@*)");
+                    }
+                }
+                else if(passwordFieldText.length() < 8){
                     passwordLayout.setHelperText("");
                     passwordLayout.setError("Minimum 8 to 10 characters");}
-                else if(pass.length()>10){
-                    password.setText("");}}
+                else if(passwordFieldText.length()>10){
+                    passwordField.setText("");//mustRemove This
+                }
+            }
             @Override
-            public void afterTextChanged(Editable editable) {}});
-        confirmPassword.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable editable){
+                //Changes after TextField has been changed
+            }
+        });
+        confirmPasswordField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String s = password.getText().toString();
-                String m =confirmPassword.getText().toString();
-                if(m.length() >=8 && m.length()<=10){
+                String passwordFieldText = passwordField.getText().toString();
+                String confirmPasswordFieldText = confirmPasswordField.getText().toString();
+                if(confirmPasswordFieldText.length() >=8 && confirmPasswordFieldText.length()<=10){
                     Pattern pattern=Pattern.compile("[^a-zA-Z0-9]");
-                    Matcher matcher=pattern.matcher(m);
+                    Matcher matcher=pattern.matcher(confirmPasswordFieldText);
                     boolean ispswcntnspchar=matcher.find();
-                    if(ispswcntnspchar && m.equals(s)){
+                    if(ispswcntnspchar && confirmPasswordFieldText.equals(passwordFieldText)){
                         confirmPasswordLayout.setHelperText("Confirm Password Match with Password");}
                     else if(!ispswcntnspchar) {
                         confirmPasswordLayout.setHelperText("");
-                        confirmPasswordLayout.setError("Weak Password and password not match");}
+                        confirmPasswordLayout.setError("Weak Password and passwordField not match");}
                     else {
                         confirmPasswordLayout.setError("Confirm Password not Match with Password");}}
-                else if(m.length() < 8) {
+                else if(confirmPasswordFieldText.length() < 8) {
                     confirmPasswordLayout.setError("Confirm Password not Match with Password and minimum 8 char");}
-                else if(m.length() >10) {
-                    confirmPassword.setText(" ");}
+                else if(confirmPasswordFieldText.length() >10) {
+                    confirmPasswordField.setText(" ");}
                 else {
                     confirmPasswordLayout.setError("Confirm Password not Match with Password");}}
             @Override
-            public void afterTextChanged(Editable editable) {}});
+            public void afterTextChanged(Editable editable) {
 
-        username.addTextChangedListener(new TextWatcher() {
+            }
+        });
+
+        usernameField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String user = username.getText().toString();
-                if (user.matches("[a-zA-z0-9]+")&& user.length() > 6) {
+                String usernameFieldText = usernameField.getText().toString();
+                if (usernameFieldText.matches("[a-zA-z0-9]+")&& usernameFieldText.length() > 6) {
                     usernameLayout.setHelperText("Matched");}
-                else if (user.length() <= 6) {
+                else if (usernameFieldText.length() <= 6) {
                     usernameLayout.setError("enter more than 6 char");
                 }
-                else if(!user.matches("[a-zA-z0-9]+") && user.length() >6){
+                else if(!usernameFieldText.matches("[a-zA-z0-9]+") && usernameFieldText.length() >6){
                     usernameLayout.setError("include only alphabetical char");}}
             @Override
-            public void afterTextChanged(Editable s) {}});
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = password.getText().toString();
-                String m = confirmPassword.getText().toString();
-                String n = number.getText().toString();
-                String e = email.getText().toString();
-                String u = username.getText().toString();
+                String passwordFieldText = passwordField.getText().toString();
+                String confirmPasswordFieldText = confirmPasswordField.getText().toString();
+                String numberFieldText = numberField.getText().toString();
+                String e = emailField.getText().toString();
+                String usernameFieldText = usernameField.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
                 String sEmail;
                 String sPassword;
-                sEmail= String.valueOf(email.getText());
-                sPassword= String.valueOf(password.getText());
+                sEmail= String.valueOf(emailField.getText());
+                sPassword= String.valueOf(passwordField.getText());
 
                 if(TextUtils.isEmpty(sPassword) || TextUtils.isEmpty(sEmail)) {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(SignUpAct.this,"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();
                     return;}
-                else if (u.length() <= 6) {
+                else if (usernameFieldText.length() <= 6) {
                     Toast.makeText(getApplicationContext(),"Invalid Username.Less than 6 char",Toast.LENGTH_SHORT).show();}
                 // mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
                 //         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                 //           @Override
                 //          public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
-                if(s.length() >=8 && s.length()<=10 && m.length() >=8 && m.length() <=10 && n.length()==10 && u.length() > 6) {
-                    //  if (task.isSuccessful() && Patterns.EMAIL_ADDRESS.matcher(sEmail).matches() && s.equals(m) && u.matches("[a-zA-z0-9]+")) {
+                if(passwordFieldText.length() >=8 && passwordFieldText.length()<=10 && confirmPasswordFieldText.length() >=8 && confirmPasswordFieldText.length() <=10 && numberFieldText.length()==10 && usernameFieldText.length() > 6) {
+                    //  if (task.isSuccessful() && Patterns.EMAIL_ADDRESS.matcher(sEmail).matches() && passwordFieldText.equals(confirmPasswordFieldText) && u.matches("[a-zA-z0-9]+")) {
                     Toast.makeText(SignUpAct.this, "Account created.",
                             Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignUpAct.this, MainActivity.class));
                     finish();
-                    createNotify();}
-                else if(!u.matches("[a-zA-z0-9]+")){
-                    Toast.makeText(getApplicationContext(),"Invalid Username",Toast.LENGTH_SHORT).show();}
-                else if( u.length() >=6 && !u.matches("[a-zA-z0-9]+") && !Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()){
-                    Toast.makeText(getApplicationContext(),"Invalid Username and sEmail",Toast.LENGTH_SHORT).show();}
+                    createNotify();
+                }
+                else if(!usernameFieldText.matches("[a-zA-z0-9]+")){
+                    Toast.makeText(getApplicationContext(),"Invalid Username",Toast.LENGTH_SHORT).show();
+                }
+                else if( usernameFieldText.length() >=6 && !usernameFieldText.matches("[a-zA-z0-9]+") && !Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()){
+                    Toast.makeText(getApplicationContext(),"Invalid Username and sEmail",Toast.LENGTH_SHORT).show();
+                }
                 else {
                     Toast.makeText(SignUpAct.this, "invalid Email id",
-                            Toast.LENGTH_SHORT).show();};
-                if(!s.equals(m)){
-                    password.setText("");
-                    confirmPassword.setText("");
+                            Toast.LENGTH_SHORT).show();
+                };
+                if(!passwordFieldText.equals(confirmPasswordFieldText)){
+                    passwordField.setText("");
+                    confirmPasswordField.setText("");
                     passwordLayout.setError("Re Enter Password with Minimum 8 to 10 Char");
                     confirmPasswordLayout.setError("Enter Same Password for Confirm Password");
                     Toast.makeText(getApplicationContext(),"Password not matched.Re Enter sPassword",Toast.LENGTH_SHORT).show();}
-                else if( m.isEmpty() || n.isEmpty() || u.isEmpty() )  {
+                else if( confirmPasswordFieldText.isEmpty() || numberFieldText.isEmpty() || usernameFieldText.isEmpty() )  {
                     Toast.makeText(getApplicationContext(),"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();}
-                else if(s.length() <8 || m.length() <8) {
+                else if(passwordFieldText.length() <8 || confirmPasswordFieldText.length() <8) {
                     Toast.makeText(getApplicationContext(),"invalid with less sPassword char",Toast.LENGTH_SHORT).show();}
-                if(n.length() <10){
+                if(numberFieldText.length() <10){
                     Toast.makeText(getApplicationContext(),"less than 10 numbers",Toast.LENGTH_SHORT).show();}}});
 
-        txtsignin.setOnClickListener(new View.OnClickListener() {
+        singInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpAct.this,MainActivity.class));
@@ -240,4 +262,7 @@ public class SignUpAct extends AppCompatActivity {
         builder.setContentIntent(pendingIntent);
         NotificationManagerCompat m=NotificationManagerCompat.from(getApplicationContext());
         m.notify(new Random().nextInt(),builder.build()); //new Random.nextInt(),..for multiple notification
-    }}
+    }
+
+
+}
