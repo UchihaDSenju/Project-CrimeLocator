@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class SignUpAct extends AppCompatActivity {
     Button register;
     TextView singInBtn;
-    Boolean usernameDone=Boolean.FALSE, emailDone=Boolean.FALSE, numberDone=Boolean.FALSE, passwordDone=Boolean.FALSE;
+    Boolean usernameDone=Boolean.FALSE, emailDone=Boolean.FALSE, numberDone=Boolean.FALSE,co, passwordDone=Boolean.FALSE;
     ProgressBar progressBar;
 
     @Override
@@ -45,7 +45,7 @@ public class SignUpAct extends AppCompatActivity {
         register=findViewById(R.id.register);
         singInBtn =findViewById(R.id.textsignin);
         progressBar=findViewById(R.id.progBar);
-        String user = usernameField.getText().toString();
+
 
         numberField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,15 +83,19 @@ public class SignUpAct extends AppCompatActivity {
                     if(passwordOkay){
                         passwordLayout.setHelperText("Strong Password");
                         passwordLayout.setError("");
+                        passwordDone=Boolean.TRUE;
                     }
                     else {
                         passwordLayout.setHelperText("");
                         passwordLayout.setError("Weak Password.Include 1 special character(eg:#@*)");
+                        passwordDone=Boolean.FALSE;
                     }
                 }
                 else if(passwordFieldText.length() < 8){
                     passwordLayout.setHelperText("");
-                    passwordLayout.setError("Minimum 8 to 10 characters");}
+                    passwordLayout.setError("Minimum 8 to 10 characters");
+                    passwordDone=Boolean.FALSE;
+                }
                 else if(passwordFieldText.length()>10){
                     passwordField.setText("");//mustRemove This
                 }
@@ -110,17 +114,44 @@ public class SignUpAct extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String passwordFieldText = passwordField.getText().toString();
                 String confirmPasswordFieldText = confirmPasswordField.getText().toString();
-                if(confirmPasswordFieldText.equals(passwordFieldText)){
+                if(confirmPasswordFieldText.equals(passwordFieldText) && passwordDone){
                     confirmPasswordLayout.setHelperText("Password Matches");
-                    passwordDone=Boolean.TRUE;
+                }
+                else if(!passwordDone){
+                    confirmPasswordLayout.setError("Enter password according to the given standards");
                 }
                 else {
                     confirmPasswordLayout.setError("Confirm Password not Match with Password");
-                    passwordDone=Boolean.FALSE;
                 }
             }
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        emailField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String Email;
+                Email= String.valueOf(emailField.getText());
+                if( Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+                {
+                    emailLayout.setHelperText("Valid");
+                    emailDone=Boolean.TRUE;
+                }
+                else{
+                    emailLayout.setError("Not Valid");
+                    emailDone=Boolean.FALSE;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -151,8 +182,7 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                
-                if(usernameDone && numberDone && passwordDone){
+                if(usernameDone && numberDone && passwordDone && emailDone ){
                     Toast.makeText(SignUpAct.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
@@ -160,52 +190,7 @@ public class SignUpAct extends AppCompatActivity {
                     Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
-               
-//                String sEmail;
-//                String sPassword;
-//                sEmail= String.valueOf(emailField.getText());
-//                sPassword= String.valueOf(passwordField.getText());
-//                if(TextUtils.isEmpty(sPassword) || TextUtils.isEmpty(sEmail)) {
-//                    progressBar.setVisibility(View.GONE);
-//                    Toast.makeText(SignUpAct.this,"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();
-//                    return;}
-//                else if (usernameFieldText.length() <= 6) {
-//                    Toast.makeText(getApplicationContext(),"Invalid Username.Less than 6 char",Toast.LENGTH_SHORT).show();}
-//                // mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
-//                //         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                //           @Override
-//                //          public void onComplete(@NonNull Task<AuthResult> task) {
-//                progressBar.setVisibility(View.GONE);
-//                if(passwordFieldText.length() >=8 && passwordFieldText.length()<=10 && confirmPasswordFieldText.length() >=8 && confirmPasswordFieldText.length() <=10 && numberFieldText.length()==10 && usernameFieldText.length() > 6) {
-//                    //  if (task.isSuccessful() && Patterns.EMAIL_ADDRESS.matcher(sEmail).matches() && passwordFieldText.equals(confirmPasswordFieldText) && u.matches("[a-zA-z0-9]+")) {
-//                    Toast.makeText(SignUpAct.this, "Account created.",
-//                            Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(SignUpAct.this, MainActivity.class));
-//                    finish();
-////                    createNotify();
-//                }
-//                else if(!usernameFieldText.matches("[a-zA-z0-9]+")){
-//                    Toast.makeText(getApplicationContext(),"Invalid Username",Toast.LENGTH_SHORT).show();
-//                }
-//                else if( usernameFieldText.length() >=6 && !usernameFieldText.matches("[a-zA-z0-9]+") && !Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()){
-//                    Toast.makeText(getApplicationContext(),"Invalid Username and sEmail",Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(SignUpAct.this, "invalid Email id",
-//                            Toast.LENGTH_SHORT).show();
-//                };
-//                if(!passwordFieldText.equals(confirmPasswordFieldText)){
-//                    passwordField.setText("");
-//                    confirmPasswordField.setText("");
-//                    passwordLayout.setError("Re Enter Password with Minimum 8 to 10 Char");
-//                    confirmPasswordLayout.setError("Enter Same Password for Confirm Password");
-//                    Toast.makeText(getApplicationContext(),"Password not matched.Re Enter sPassword",Toast.LENGTH_SHORT).show();}
-//                else if( confirmPasswordFieldText.isEmpty() || numberFieldText.isEmpty() || usernameFieldText.isEmpty() )  {
-//                    Toast.makeText(getApplicationContext(),"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();}
-//                else if(passwordFieldText.length() <8 || confirmPasswordFieldText.length() <8) {
-//                    Toast.makeText(getApplicationContext(),"invalid with less sPassword char",Toast.LENGTH_SHORT).show();}
-//                if(numberFieldText.length() <10){
-//                    Toast.makeText(getApplicationContext(),"less than 10 numbers",Toast.LENGTH_SHORT).show();}
+
             }
         });
 
@@ -213,33 +198,8 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpAct.this,MainActivity.class));
-                finish();}});}
+                finish();}});}}
 
-
-}
-
-
-/*
-* For Reference
-* Pattern pattern=Pattern.compile("[^a-zA-Z0-9]");
-//                    Matcher matcher=pattern.matcher(confirmPasswordFieldText);
-//                    boolean ispswcntnspchar=matcher.find();
-//                    if(ispswcntnspchar && confirmPasswordFieldText.equals(passwordFieldText)){
-//                        confirmPasswordLayout.setHelperText("Confirm Password Match with Password");
-//                    }
-//                    else if(!ispswcntnspchar) {
-//                        confirmPasswordLayout.setHelperText("");
-//                        confirmPasswordLayout.setError("Weak Password and passwordField not match");
-//                    }
-//                    else {
-//                        confirmPasswordLayout.setError("Confirm Password not Match with Password");
-//                    }
-                }
-//                else if(confirmPasswordFieldText.length() < 8) {
-//                    confirmPasswordLayout.setError("Confirm Password not Match with Password and minimum 8 char");
-//                }
-//                else if(confirmPasswordFieldText.length() >10) {
-//                    confirmPasswordField.setText(" ");}*/
 
 //    private void createNotify()
 //    {
@@ -263,7 +223,7 @@ public class SignUpAct extends AppCompatActivity {
 //            pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
 //        }
 //        NotificationCompat.Builder builder=new NotificationCompat.Builder(this,id)
-//               // .setSmallIcon(R.drawable.crimelogo)
+//                .setSmallIcon(R.drawable.crimelogo)
 //                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.back))
 //                .setStyle(new NotificationCompat.BigPictureStyle()
 //                        .bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.back))
