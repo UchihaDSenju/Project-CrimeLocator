@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
@@ -32,8 +31,8 @@ public class SignUpAct extends AppCompatActivity {
     String username, email, number, password;
     ProgressBar progressBar;
     ProgressDialog progressDialog;
-    MyFirebase firebase=new MyFirebase();
 
+    MyFirebase firebase=new MyFirebase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +88,12 @@ public class SignUpAct extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String Email;
-                Email= String.valueOf(emailField.getText());
-                if( Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+                String emailFieldText = String.valueOf(emailField.getText());
+                if( Patterns.EMAIL_ADDRESS.matcher(emailFieldText).matches())
                 {
                     emailLayout.setHelperText("Valid");
                     emailDone=Boolean.TRUE;
+                    email = emailFieldText;
                 }
                 else{
                     emailLayout.setError("Not Valid");
@@ -198,17 +197,13 @@ public class SignUpAct extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
 
                 
                 if(usernameDone && numberDone && passwordDone){
-//                    firebase.register();
-                    Toast.makeText(SignUpAct.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    firebase.register(email, password, progressDialog);
                 }
                 else{
                     Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
                 }
                
 
@@ -226,27 +221,6 @@ public class SignUpAct extends AppCompatActivity {
 }
 
 
-/*
-* For Reference
-* Pattern pattern=Pattern.compile("[^a-zA-Z0-9]");
-//                    Matcher matcher=pattern.matcher(confirmPasswordFieldText);
-//                    boolean ispswcntnspchar=matcher.find();
-//                    if(ispswcntnspchar && confirmPasswordFieldText.equals(passwordFieldText)){
-//                        confirmPasswordLayout.setHelperText("Confirm Password Match with Password");
-//                    }
-//                    else if(!ispswcntnspchar) {
-//                        confirmPasswordLayout.setHelperText("");
-//                        confirmPasswordLayout.setError("Weak Password and passwordField not match");
-//                    }
-//                    else {
-//                        confirmPasswordLayout.setError("Confirm Password not Match with Password");
-//                    }
-                }
-//                else if(confirmPasswordFieldText.length() < 8) {
-//                    confirmPasswordLayout.setError("Confirm Password not Match with Password and minimum 8 char");
-//                }
-//                else if(confirmPasswordFieldText.length() >10) {
-//                    confirmPasswordField.setText(" ");}*/
 
 //    private void createNotify()
 //    {
@@ -285,49 +259,3 @@ public class SignUpAct extends AppCompatActivity {
 //        NotificationManagerCompat m=NotificationManagerCompat.from(getApplicationContext());
 //        m.notify(new Random().nextInt(),builder.build()); //new Random.nextInt(),..for multiple notification
 //    }
-
-//                String sEmail;
-//                String sPassword;
-//                sEmail= String.valueOf(emailField.getText());
-//                sPassword= String.valueOf(passwordField.getText());
-//                if(TextUtils.isEmpty(sPassword) || TextUtils.isEmpty(sEmail)) {
-//                    progressBar.setVisibility(View.GONE);
-//                    Toast.makeText(SignUpAct.this,"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();
-//                    return;}
-//                else if (usernameFieldText.length() <= 6) {
-//                    Toast.makeText(getApplicationContext(),"Invalid Username.Less than 6 char",Toast.LENGTH_SHORT).show();}
-//                // mAuth.createUserWithEmailAndPassword(sEmail, sPassword)
-//                //         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                //           @Override
-//                //          public void onComplete(@NonNull Task<AuthResult> task) {
-//                progressBar.setVisibility(View.GONE);
-//                if(passwordFieldText.length() >=8 && passwordFieldText.length()<=10 && confirmPasswordFieldText.length() >=8 && confirmPasswordFieldText.length() <=10 && numberFieldText.length()==10 && usernameFieldText.length() > 6) {
-//                    //  if (task.isSuccessful() && Patterns.EMAIL_ADDRESS.matcher(sEmail).matches() && passwordFieldText.equals(confirmPasswordFieldText) && u.matches("[a-zA-z0-9]+")) {
-//                    Toast.makeText(SignUpAct.this, "Account created.",
-//                            Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(SignUpAct.this, MainActivity.class));
-//                    finish();
-////                    createNotify();
-//                }
-//                else if(!usernameFieldText.matches("[a-zA-z0-9]+")){
-//                    Toast.makeText(getApplicationContext(),"Invalid Username",Toast.LENGTH_SHORT).show();
-//                }
-//                else if( usernameFieldText.length() >=6 && !usernameFieldText.matches("[a-zA-z0-9]+") && !Patterns.EMAIL_ADDRESS.matcher(sEmail).matches()){
-//                    Toast.makeText(getApplicationContext(),"Invalid Username and sEmail",Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(SignUpAct.this, "invalid Email id",
-//                            Toast.LENGTH_SHORT).show();
-//                };
-//                if(!passwordFieldText.equals(confirmPasswordFieldText)){
-//                    passwordField.setText("");
-//                    confirmPasswordField.setText("");
-//                    passwordLayout.setError("Re Enter Password with Minimum 8 to 10 Char");
-//                    confirmPasswordLayout.setError("Enter Same Password for Confirm Password");
-//                    Toast.makeText(getApplicationContext(),"Password not matched.Re Enter sPassword",Toast.LENGTH_SHORT).show();}
-//                else if( confirmPasswordFieldText.isEmpty() || numberFieldText.isEmpty() || usernameFieldText.isEmpty() )  {
-//                    Toast.makeText(getApplicationContext(),"Invalid.Fill all fields",Toast.LENGTH_SHORT).show();}
-//                else if(passwordFieldText.length() <8 || confirmPasswordFieldText.length() <8) {
-//                    Toast.makeText(getApplicationContext(),"invalid with less sPassword char",Toast.LENGTH_SHORT).show();}
-//                if(numberFieldText.length() <10){
-//                    Toast.makeText(getApplicationContext(),"less than 10 numbers",Toast.LENGTH_SHORT).show();}
