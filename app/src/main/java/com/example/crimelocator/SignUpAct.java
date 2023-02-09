@@ -81,6 +81,34 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 
+        emailField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String Email;
+                Email= String.valueOf(emailField.getText());
+                if( Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+                {
+                    emailLayout.setHelperText("Valid");
+                    emailDone=Boolean.TRUE;
+                }
+                else{
+                    emailLayout.setError("Not Valid");
+                    emailDone=Boolean.FALSE;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         numberField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
