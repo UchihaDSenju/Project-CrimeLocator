@@ -2,6 +2,7 @@ package com.example.crimelocator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,10 +23,16 @@ import java.util.regex.Pattern;
 
 public class SignUpAct extends AppCompatActivity {
 
+
+
+
     Button register;
     TextView singInBtn;
     Boolean usernameDone=Boolean.FALSE, emailDone=Boolean.FALSE, numberDone=Boolean.FALSE, passwordDone=Boolean.FALSE;
+    String username, email, number, password;
     ProgressBar progressBar;
+    ProgressDialog progressDialog;
+    MyFirebase firebase=new MyFirebase();
 
 
     @Override
@@ -33,21 +40,23 @@ public class SignUpAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
-        // mAuth=FirebaseAuth.getInstance();
+
         TextInputLayout usernameLayout =findViewById(R.id.usernameLayout);
         TextInputLayout emailLayout=findViewById(R.id.emailLayout);
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
         TextInputLayout numberLayout=findViewById(R.id.numberLayout);
+
         TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
         TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
         TextInputEditText numberField =findViewById(R.id.number);   // mobile
         TextInputEditText emailField = findViewById(R.id.email);    // Email
         TextInputEditText usernameField =findViewById(R.id.username); // usernameField
+
         register=findViewById(R.id.register);
         singInBtn =findViewById(R.id.textsignin);
         progressBar=findViewById(R.id.progBar);
-        String user = usernameField.getText().toString();
+        progressDialog = new ProgressDialog(SignUpAct.this);
 
         usernameField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,6 +67,7 @@ public class SignUpAct extends AppCompatActivity {
                 if (usernameFieldText.matches("[a-zA-z0-9]+")&& usernameFieldText.length() > 6) {
                     usernameLayout.setHelperText("Matched");
                     usernameDone=Boolean.TRUE;
+                    username = usernameFieldText;
                 }
                 else if (usernameFieldText.length() <= 6) {
                     usernameDone=Boolean.FALSE;
@@ -84,6 +94,7 @@ public class SignUpAct extends AppCompatActivity {
                 else if (numberFieldText.length()==10){
                     numberLayout.setHelperText("verified");//color
                     numberDone=Boolean.TRUE;
+                    number = numberFieldText;
                 }
                 else {
                     numberLayout.setError("Enter 10 numbers");
@@ -143,6 +154,7 @@ public class SignUpAct extends AppCompatActivity {
                 if(confirmPasswordFieldText.equals(passwordFieldText)){
                     confirmPasswordLayout.setHelperText("Password Matches");
                     passwordDone=Boolean.TRUE;
+                    password = passwordFieldText;
                 }
                 else {
                     confirmPasswordLayout.setError("Confirm Password not Match with Password");
@@ -159,8 +171,10 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
+
                 
                 if(usernameDone && numberDone && passwordDone){
+//                    firebase.register();
                     Toast.makeText(SignUpAct.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
