@@ -45,11 +45,15 @@ public class SignUpAct extends AppCompatActivity {
         TextInputLayout emailLayout=findViewById(R.id.emailLayout);
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
-        TextInputLayout numberLayout=findViewById(R.id.numberLayout);
+
+
+
+
+    //    TextInputLayout numberLayout=findViewById(R.id.numberLayout);
 
         TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
         TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
-        TextInputEditText numberField =findViewById(R.id.number);   // mobile
+    //    TextInputEditText numberField =findViewById(R.id.number);   // mobile
         TextInputEditText emailField = findViewById(R.id.email);    // Email
         TextInputEditText usernameField =findViewById(R.id.username); // usernameField
 
@@ -81,6 +85,7 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         numberField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -106,6 +111,28 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+=======
+//        numberField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                String numberFieldText = numberField.getText().toString();
+//                if(numberFieldText.length()>10){
+//                    numberField.setError("Enter Less than 10 numbers");//red
+//                    numberField.setText("");
+//                }
+//                else if (numberFieldText.length()==10){
+//                    numberLayout.setHelperText("verified");//color
+//                    numberDone=Boolean.TRUE;
+//                }
+//                else {
+//                    numberLayout.setError("Enter 10 numbers");
+//                    numberDone=Boolean.FALSE;
+//                }}
+//            @Override
+//            public void afterTextChanged(Editable editable) {}});
+>>>>>>> 568def7d8c6905f64ea1195cc895b17ef7e5a302
 
         passwordField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -166,6 +193,58 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+=======
+
+        emailField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String Email;
+                Email= String.valueOf(emailField.getText());
+                if( Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+                {
+                    emailLayout.setHelperText("Valid");
+                    emailDone=Boolean.TRUE;
+                }
+                else{
+                    emailLayout.setError("Not Valid");
+                    emailDone=Boolean.FALSE;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        usernameField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String usernameFieldText = usernameField.getText().toString();
+                if (usernameFieldText.matches("[a-zA-z0-9]+")&& usernameFieldText.length() > 6) {
+                    usernameLayout.setHelperText("Matched");
+                    usernameDone=Boolean.TRUE;
+                }
+                else if (usernameFieldText.length() <= 6) {
+                    usernameDone=Boolean.FALSE;
+                    usernameLayout.setError("enter more than 6 char");
+                }
+                else if(!usernameFieldText.matches("[a-zA-z0-9]+") && usernameFieldText.length() >6){
+                    usernameLayout.setError("include only alphabetical char");}}
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+>>>>>>> 568def7d8c6905f64ea1195cc895b17ef7e5a302
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         signUpBtn = findViewById(R.id.signUpBtn);
         signInBtn = findViewById(R.id.signInBtn);
-        adminLogin = findViewById(R.id.adminLogin);
+       // adminLogin = findViewById(R.id.adminLogin);
         forgotPasswordBtn = findViewById(R.id.forgotPasswordBtn);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        progressBar = findViewById(R.id.progBar);
+        //progressBar = findViewById(R.id.progBar);
         //  mAuth=FirebaseAuth.getInstance();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "Enter Email and password", Toast.LENGTH_SHORT).show();
                     return;
-                }}});
-        adminLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  startActivity(new Intent(MainActivity.this, adminlogin.class));
-            }
-        });//ADMIN LOGIN
+               }}});
+//        adminLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//              //  startActivity(new Intent(MainActivity.this, adminlogin.class));
+//            }
+//        });//ADMIN LOGIN
     }}
