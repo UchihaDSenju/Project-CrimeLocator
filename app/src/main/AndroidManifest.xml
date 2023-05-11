@@ -16,6 +16,13 @@
         android:theme="@style/Theme.CrimeLocator"
         tools:targetApi="31">
         <activity
+            android:name=".NewsFeed"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SignUpAct"
             android:exported="false">
             <meta-data
@@ -32,17 +39,16 @@
         <activity
             android:name=".splashScreen"
             android:exported="true"
-            android:theme="@style/splashscreen"
-            >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/splashscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            <meta-data
+                android:name="preloaded_fonts"
+                android:resource="@array/preloaded_fonts" />
         </activity>
     </application>
 
