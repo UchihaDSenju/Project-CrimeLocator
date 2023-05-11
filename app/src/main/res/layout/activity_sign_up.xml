@@ -224,6 +224,7 @@
             android:layout_gravity="center"
             android:backgroundTint="#ca7a03"
             android:text="register"
+            android:fontFamily="@font/nunito"
             android:textSize="20dp"
             app:cornerRadius="6dp" />
         <LinearLayout
