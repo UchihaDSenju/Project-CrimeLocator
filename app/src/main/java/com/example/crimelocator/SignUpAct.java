@@ -1,11 +1,12 @@
 package com.example.crimelocator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
@@ -13,18 +14,27 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpAct extends AppCompatActivity {
-    Button register;
-    TextView singInBtn;
+    Button registerBtn;
+    TextView signInBtn;
     Boolean usernameDone=Boolean.FALSE, emailDone=Boolean.FALSE, numberDone=Boolean.FALSE,co, passwordDone=Boolean.FALSE;
     ProgressBar progressBar;
+
+    FirebaseAuth auth;
+
+    String Email = "tariq@gmail.com", Password = "w213efff";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +42,54 @@ public class SignUpAct extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
         // mAuth=FirebaseAuth.getInstance();
+
         TextInputLayout usernameLayout =findViewById(R.id.usernameLayout);
         TextInputLayout emailLayout=findViewById(R.id.emailLayout);
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
     //    TextInputLayout numberLayout=findViewById(R.id.numberLayout);
-        TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
-        TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
-    //    TextInputEditText numberField =findViewById(R.id.number);   // mobile
-        TextInputEditText emailField = findViewById(R.id.email);    // Email
+
         TextInputEditText usernameField =findViewById(R.id.username); // usernameField
-        register=findViewById(R.id.register);
-        singInBtn =findViewById(R.id.textsignin);
+        TextInputEditText emailField = findViewById(R.id.email);    // Email
+        TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
+        TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
+    //    TextInputEditText numberField =findViewById(R.id.number);   // mobile
+
+
+
+        registerBtn =findViewById(R.id.register);
+        signInBtn =findViewById(R.id.textsignin);
         progressBar=findViewById(R.id.progBar);
 
+
+        emailField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String emailChecker;
+                emailChecker = String.valueOf(emailField.getText());
+                if( Patterns.EMAIL_ADDRESS.matcher(emailChecker).matches())
+                {
+                    Email = emailChecker;
+                    emailLayout.setHelperText("Valid");
+                    emailDone=Boolean.TRUE;
+                }
+                else{
+                    Email = "";
+                    emailLayout.setError("Not Valid");
+                    emailDone=Boolean.FALSE;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 //        numberField.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -116,11 +160,14 @@ public class SignUpAct extends AppCompatActivity {
                 String confirmPasswordFieldText = confirmPasswordField.getText().toString();
                 if(confirmPasswordFieldText.equals(passwordFieldText) && passwordDone){
                     confirmPasswordLayout.setHelperText("Password Matches");
+                    Password = confirmPasswordFieldText;
                 }
                 else if(!passwordDone){
+                    Password = "";
                     confirmPasswordLayout.setError("Enter password according to the given standards");
                 }
                 else {
+                    Password = "";
                     confirmPasswordLayout.setError("Confirm Password not Match with Password");
                 }
             }
@@ -130,32 +177,6 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 
-        emailField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String Email;
-                Email= String.valueOf(emailField.getText());
-                if( Patterns.EMAIL_ADDRESS.matcher(Email).matches())
-                {
-                    emailLayout.setHelperText("Valid");
-                    emailDone=Boolean.TRUE;
-                }
-                else{
-                    emailLayout.setError("Not Valid");
-                    emailDone=Boolean.FALSE;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         usernameField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -179,27 +200,51 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                if(usernameDone && passwordDone && emailDone ){
-                    Toast.makeText(SignUpAct.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+
+                if(Email == "" || Password == ""){
+                    Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
                 else{
-                    Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    firebaseRegister(Email, Password);
+                    startActivity(new Intent(SignUpAct.this,MainActivity.class));
                 }
 
             }
         });
 
-        singInBtn.setOnClickListener(new View.OnClickListener() {
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpAct.this,MainActivity.class));
-                finish();}});}}
+                finish();
+            }
+        });
+    }
+
+    public void firebaseRegister(String Email, String Password){
+        Toast.makeText(this, "Please Wait while we are Registering you...", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.VISIBLE);
+        auth= FirebaseAuth.getInstance(); //Instantiate the firebaseAuth
+
+        auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    startActivity(new Intent(SignUpAct.this,MainActivity.class));
+                }
+                else{
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(SignUpAct.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
 
 
 //    private void createNotify()
@@ -239,3 +284,5 @@ public class SignUpAct extends AppCompatActivity {
 //        NotificationManagerCompat m=NotificationManagerCompat.from(getApplicationContext());
 //        m.notify(new Random().nextInt(),builder.build()); //new Random.nextInt(),..for multiple notification
 //    }
+
+

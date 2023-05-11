@@ -1,6 +1,7 @@
 package com.example.crimelocator;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
