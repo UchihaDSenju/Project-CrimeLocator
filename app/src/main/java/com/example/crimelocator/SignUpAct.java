@@ -45,6 +45,12 @@ public class SignUpAct extends AppCompatActivity {
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> AHMEDSAHEEL-master
     //    TextInputLayout numberLayout=findViewById(R.id.numberLayout);
 
         TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
@@ -81,7 +87,12 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         emailField.addTextChangedListener(new TextWatcher() {
+=======
+<<<<<<< HEAD
+        numberField.addTextChangedListener(new TextWatcher() {
+>>>>>>> AHMEDSAHEEL-master
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -107,8 +118,12 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
 
 
+=======
+=======
+>>>>>>> AHMEDSAHEEL-master
 //        numberField.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -129,6 +144,10 @@ public class SignUpAct extends AppCompatActivity {
 //                }}
 //            @Override
 //            public void afterTextChanged(Editable editable) {}});
+<<<<<<< HEAD
+=======
+>>>>>>> 568def7d8c6905f64ea1195cc895b17ef7e5a302
+>>>>>>> AHMEDSAHEEL-master
 
         passwordField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,6 +208,11 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> AHMEDSAHEEL-master
 
         emailField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -238,6 +262,10 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+=======
+>>>>>>> 568def7d8c6905f64ea1195cc895b17ef7e5a302
+>>>>>>> AHMEDSAHEEL-master
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
