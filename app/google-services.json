@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "222105528065",
-    "project_id": "crime-locator",
-    "storage_bucket": "crime-locator.appspot.com"
+    "project_number": "532114926093",
+    "project_id": "casemate-b07cc",
+    "storage_bucket": "casemate-b07cc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:222105528065:android:de958910a7ad2256c2dd00",
+        "mobilesdk_app_id": "1:532114926093:android:3571107e39d1447c100344",
         "android_client_info": {
           "package_name": "com.example.crimelocator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "222105528065-ruav3n2nqqgar3q0t3o3j3neomqp1skd.apps.googleusercontent.com",
+          "client_id": "532114926093-96i8hrh8eg6itmbcm93e18aguts7giji.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0InydLh4ckYcnAxGf9oW6DIayx-Q5Gi0"
+          "current_key": "AIzaSyB3H-oO2M_w18Xi4l0pOXFATnBFTEUaHGI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "222105528065-ruav3n2nqqgar3q0t3o3j3neomqp1skd.apps.googleusercontent.com",
+              "client_id": "532114926093-96i8hrh8eg6itmbcm93e18aguts7giji.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

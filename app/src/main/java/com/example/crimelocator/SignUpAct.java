@@ -183,7 +183,7 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                if(usernameDone && numberDone && passwordDone && emailDone ){
+                if(usernameDone && passwordDone && emailDone ){
                     Toast.makeText(SignUpAct.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
