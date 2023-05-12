@@ -16,14 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,10 +40,10 @@ public class SignUpAct extends AppCompatActivity {
     ProgressBar progressBar;
 
     FirebaseAuth auth;
+    FirebaseFirestore db;
 
-    String Email = "", Password = "",usernameFieldText=" ";
 
-
+    String Email = "rafiqtq19@gmail.com", Password = "frewq@12", Username="taiq";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,14 +195,17 @@ public class SignUpAct extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                  usernameFieldText = usernameField.getText().toString();
                 if (usernameFieldText.matches("[a-zA-z0-9]+")&& usernameFieldText.length() > 6) {
+                    Username = usernameFieldText;
                     usernameLayout.setHelperText("Matched");
                     usernameDone=Boolean.TRUE;
                 }
                 else if (usernameFieldText.length() <= 6) {
+                    Username = "";
                     usernameDone=Boolean.FALSE;
                     usernameLayout.setError("enter more than 6 char");
                 }
                 else if(!usernameFieldText.matches("[a-zA-z0-9]+") && usernameFieldText.length() >6){
+                    Username = "";
                     usernameLayout.setError("include only alphabetical char");}}
             @Override
             public void afterTextChanged(Editable s) {
@@ -221,8 +230,6 @@ public class SignUpAct extends AppCompatActivity {
                 }
                 else {
                     firebaseRegister(Email, Password);
-                    startActivity(new Intent(SignUpAct.this,MainActivity.class));
-                    finish();
                 }
 
 //
@@ -260,15 +267,13 @@ public class SignUpAct extends AppCompatActivity {
     public void firebaseRegister(String Email, String Password){
       //  Toast.makeText(this, "Please Wait while we are Registering you...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
-        auth= FirebaseAuth.getInstance(); //Instantiate the firebaseAuth
+        auth = FirebaseAuth.getInstance(); //Instantiate the firebaseAuth
 
         auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(SignUpAct.this, "Registered Successfully.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignUpAct.this,MainActivity.class));
-                    finish();
+                    firebaseStoreUserDetails(Username, Email);
                 }
                 else{
                     progressBar.setVisibility(View.GONE);
@@ -276,6 +281,30 @@ public class SignUpAct extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void firebaseStoreUserDetails(String username, String email){
+        db = FirebaseFirestore.getInstance();
+        Map<String, Object> m = new HashMap<>();
+        m.put("username", username);
+        m.put("email", email);
+        db.collection("Users/")
+                .document(username)
+                .set(m)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(SignUpAct.this, "Registered", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignUpAct.this, MainActivity.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUpAct.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }
 
