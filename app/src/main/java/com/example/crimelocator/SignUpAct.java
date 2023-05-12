@@ -34,7 +34,7 @@ public class SignUpAct extends AppCompatActivity {
 
     FirebaseAuth auth;
 
-    String Email = "tariq@gmail.com", Password = "w213efff";
+    String Email = "", Password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
