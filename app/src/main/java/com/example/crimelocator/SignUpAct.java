@@ -39,9 +39,9 @@ public class SignUpAct extends AppCompatActivity {
     ProgressBar progressBar;
 
     FirebaseAuth auth;
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String Email = "rafiqtq19@gmail.com", Password = "frewq@12", Username="taiq";
+    String Email = "don@gmail.com", Password = "don@19", Username="tariq";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,7 +256,6 @@ public class SignUpAct extends AppCompatActivity {
     }
 
     public void firebaseStoreUserDetails(String username, String email){
-        db = FirebaseFirestore.getInstance();
         Map<String, Object> m = new HashMap<>();
         m.put("username", username);
         m.put("email", email);
@@ -266,8 +265,9 @@ public class SignUpAct extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+//                        LoggedInUserDetails ud = new LoggedInUserDetails(username, email);
                         Toast.makeText(SignUpAct.this, "Registered", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignUpAct.this, MainActivity.class));
+                        startActivity(new Intent(SignUpAct.this, NewsFeed.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
