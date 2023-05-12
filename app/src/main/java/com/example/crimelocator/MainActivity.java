@@ -28,6 +28,20 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        FirebaseUser currentUser = auth.getCurrentUser();
+//        if(currentUser != null){
+//            Toast.makeText(MainActivity.this,currentUser.toString()+" Signed in",Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(MainActivity.this,NewsFeed.class));
+//            finish();}
+//        else
+//        {
+//            Toast.makeText(MainActivity.this,"No Current user",Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 //        progressBar = findViewById(R.id.progBar);
-        //  mAuth=FirebaseAuth.getInstance();
+         auth=FirebaseAuth.getInstance();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                }
                 else{
                     firebaseSignin(email, password);
+
+
                 }
             }
         });
@@ -79,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 //        });//ADMIN LOGIN
     }
     public void firebaseSignin(String email, String password){
-        auth = FirebaseAuth.getInstance();
+
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -88,9 +104,10 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(MainActivity.this, user.toString()+" Signed in Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,user.toString()+" Signed in Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, NewsFeed.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

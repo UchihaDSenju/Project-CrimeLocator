@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 //import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
@@ -34,14 +35,16 @@ public class SignUpAct extends AppCompatActivity {
 
     FirebaseAuth auth;
 
-    String Email = "", Password = "";
+    String Email = "", Password = "",usernameFieldText=" ";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
-        // mAuth=FirebaseAuth.getInstance();
+        auth=FirebaseAuth.getInstance();
 
         TextInputLayout usernameLayout =findViewById(R.id.usernameLayout);
         TextInputLayout emailLayout=findViewById(R.id.emailLayout);
@@ -72,11 +75,12 @@ public class SignUpAct extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String emailChecker;
                 emailChecker = String.valueOf(emailField.getText());
-                if( Patterns.EMAIL_ADDRESS.matcher(emailChecker).matches())
-                {
+                if( Patterns.EMAIL_ADDRESS.matcher(emailChecker).matches()) {
                     Email = emailChecker;
                     emailLayout.setHelperText("Valid");
-                    emailDone=Boolean.TRUE;
+                    if (Email!=" ") {
+                        firebaseEmailCheck(Email, emailLayout);
+                    }
                 }
                 else{
                     Email = "";
@@ -183,7 +187,7 @@ public class SignUpAct extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String usernameFieldText = usernameField.getText().toString();
+                 usernameFieldText = usernameField.getText().toString();
                 if (usernameFieldText.matches("[a-zA-z0-9]+")&& usernameFieldText.length() > 6) {
                     usernameLayout.setHelperText("Matched");
                     usernameDone=Boolean.TRUE;
@@ -205,15 +209,23 @@ public class SignUpAct extends AppCompatActivity {
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                if(Email == "" || Password == ""){
+                if(Email == "" || Password == "" || usernameFieldText==" "){
                     Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
-                else{
+
+                else if(!usernameDone || !emailDone || !passwordDone)
+                {
+                    Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+                else {
                     firebaseRegister(Email, Password);
                     startActivity(new Intent(SignUpAct.this,MainActivity.class));
+                    finish();
                 }
 
+//
             }
         });
 
@@ -226,8 +238,27 @@ public class SignUpAct extends AppCompatActivity {
         });
     }
 
+    public void firebaseEmailCheck(String email, TextInputLayout emailLayout){
+        auth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                        boolean check= !task.getResult().getSignInMethods().isEmpty();
+                        if(check){
+                            emailDone=Boolean.FALSE;
+                            emailLayout.setError("Email Already Exists");
+                            Toast.makeText(SignUpAct.this, "Email Already Exists", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            emailDone=Boolean.TRUE;
+                        }
+                    }
+                });
+    }
+
     public void firebaseRegister(String Email, String Password){
-        Toast.makeText(this, "Please Wait while we are Registering you...", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "Please Wait while we are Registering you...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
         auth= FirebaseAuth.getInstance(); //Instantiate the firebaseAuth
 
@@ -235,7 +266,9 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Toast.makeText(SignUpAct.this, "Registered Successfully.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignUpAct.this,MainActivity.class));
+                    finish();
                 }
                 else{
                     progressBar.setVisibility(View.GONE);
