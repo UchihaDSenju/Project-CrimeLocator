@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CrimeLocator</string>
+    <string name="welcome_user">Welcome User</string>
+    <string name="news_feed">NEWS FEED</string>
 </resources>
