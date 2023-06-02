@@ -11,12 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    NewsData[] newsData;
+    ArrayList<NewsData> newsData;
     Context context;
 
-    public NewsAdapter(NewsData[] newsData, NewsFeed activity) {
+    public NewsAdapter(ArrayList<NewsData> newsData, NewsFeed activity) {
         this.newsData=newsData;
         this.context=activity;
 
@@ -34,22 +36,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-     final NewsData newsDatalist=newsData[position];
-     holder.textView1CV.setText(newsDatalist.getNewsDescription());
+     final NewsData newsDatalist = newsData.get(position);
+     holder.textView1CV.setText(newsDatalist.getNewsTitle());
      holder.textView2Cv.setText(newsDatalist.getNewsTime());
      holder.imageViewCV.setImageResource(newsDatalist.getNewsImage());
 
      holder.itemView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Toast.makeText(context,newsDatalist.getNewsDescription(),Toast.LENGTH_SHORT).show();
+             Toast.makeText(context,newsDatalist.getNewsTitle(),Toast.LENGTH_SHORT).show();
          }
      });
     }
 
     @Override
     public int getItemCount() {
-        return newsData.length;
+        return newsData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

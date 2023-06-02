@@ -1,22 +1,22 @@
 package com.example.crimelocator;
 
 public class NewsData {
-    private  String newsDescription;
+    private  String newsTitle;
     private String newsTime;
     private int newsImage;
 
-    public NewsData(String newsDescription, String newsTime, int newsImage) {
-        this.newsDescription = newsDescription;
+    public NewsData(String newsTitle, String newsTime, int newsImage) {
+        this.newsTitle = newsTitle;
         this.newsTime = newsTime;
         this.newsImage = newsImage;
     }
 
-    public String getNewsDescription() {
-        return newsDescription;
+    public String getNewsTitle() {
+        return newsTitle;
     }
 
-    public void setNewsDescription(String newsDescription) {
-        this.newsDescription = newsDescription;
+    public void setNewsTitle(String newsTitle) {
+        this.newsTitle = newsTitle;
     }
 
     public String getNewsTime() {

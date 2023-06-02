@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin(email, password);
+                    firebaseSignin("tariq@gmail.com", "tariq@19");
 
 
                 }
@@ -119,3 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 }
+
+//TODO
+/*
+* Add Progress Bar on login loading*/
