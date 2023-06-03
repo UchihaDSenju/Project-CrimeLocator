@@ -24,24 +24,21 @@ public class MainActivity extends AppCompatActivity {
     TextView signUpBtn, forgotPasswordBtn;
     Button signInBtn, adminLogin;
     TextInputEditText email, password;
-    ProgressBar progressBar;
+    ProgressBar mainProgressBar;
 
     FirebaseAuth auth;
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        FirebaseUser currentUser = auth.getCurrentUser();
-//        if(currentUser != null){
-//            Toast.makeText(MainActivity.this,currentUser.toString()+" Signed in",Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(MainActivity.this,NewsFeed.class));
-//            finish();}
-//        else
-//        {
-//            Toast.makeText(MainActivity.this,"No Current user",Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            Toast.makeText(MainActivity.this,currentUser+" Signed in",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,NewsFeed.class));
+            finish();}
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         forgotPasswordBtn = findViewById(R.id.forgotPasswordBtn);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-//        progressBar = findViewById(R.id.progBar);
+        mainProgressBar = findViewById(R.id.mainProgBar);
          auth=FirebaseAuth.getInstance();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                progressBar.setVisibility(View.VISIBLE);
+                mainProgressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(MainActivity.this.email.getText());
                 password = String.valueOf(MainActivity.this.password.getText());
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-//                    progressBar.setVisibility(View.GONE);
+                   mainProgressBar.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "Enter Email and password", Toast.LENGTH_SHORT).show();
                     return;
                }
@@ -101,17 +98,19 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            mainProgressBar.setVisibility(View.GONE);
                             FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(MainActivity.this,user.toString()+" Signed in Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,user+" Signed in Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, NewsFeed.class);
                             startActivity(intent);
                             finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            mainProgressBar.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this, task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                         }

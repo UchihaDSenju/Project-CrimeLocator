@@ -9,15 +9,27 @@
     android:background="@color/primary_bg"
     tools:context=".NewsFeed">
 
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="12dp"
         android:fontFamily="@font/sigmar_one"
-        android:gravity="right"
+        android:textAlignment="textEnd"
         android:text="@string/welcome_user"
         android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:textSize="20sp"
+        android:drawableStart="@drawable/ic_baseline_logout_24"
+        android:id="@+id/textLogout"
+        android:layout_marginTop="-28dp"
+        android:textAlignment="textStart"/>
+
 
     <TextView
         android:layout_marginTop="20dp"
@@ -29,6 +41,15 @@
         android:text="@string/news_feed"
         android:textColor="@color/text_font_color"
         android:textSize="40sp" />
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:id="@+id/progBar">
+
+    </ProgressBar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

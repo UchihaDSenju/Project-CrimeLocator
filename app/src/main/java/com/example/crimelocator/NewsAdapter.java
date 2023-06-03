@@ -1,6 +1,7 @@
 package com.example.crimelocator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
          @Override
          public void onClick(View v) {
              Toast.makeText(context,newsDatalist.getNewsTitle(),Toast.LENGTH_SHORT).show();
+
+             Intent intent = new Intent(context ,NewsDesc.class);
+             intent.putExtra("NAME",newsDatalist.getNewsTitle());
+             context.startActivity(intent);
+
+
+
+
+
+
+
          }
+
      });
     }
 
@@ -66,5 +79,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             textView1CV=itemView.findViewById(R.id.textView1CV);
             textView2Cv=itemView.findViewById(R.id.textView2CV);
         }
+
     }
 }
