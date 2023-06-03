@@ -47,7 +47,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
              Toast.makeText(context,newsDataList.getNewsTitle(),Toast.LENGTH_SHORT).show();
 
              Intent intent = new Intent(context ,NewsDesc.class);
-             intent.putExtra("TITLE",newsDataList.getNewsTitle()).putExtra("DESC", newsDataList.getNewsDesc()).putExtra("DATE", newsDataList.getNewsTime()).putExtra("COVER", newsDataList.getNewsImage());
+             intent.putExtra("TITLE",newsDataList.getNewsTitle()).putExtra("DESC", newsDataList.getNewsDesc()).putExtra("DATE", newsDataList.getNewsTime()).putExtra("ID", newsDataList.getNewsId());
              context.startActivity(intent);
          }
 
