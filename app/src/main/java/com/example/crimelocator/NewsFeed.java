@@ -108,7 +108,7 @@ public class NewsFeed extends AppCompatActivity {
                             Map<String, Object> newsFeed = snapshot.getData();
                             String day = getDate((Timestamp) newsFeed.get("date_created"));
 //                            Log.d(TAG, "onSuccess: " + newsFeed);
-                            ref = storage.getReference("News/News_1/Devil_wallpaper.jpg");
+                            ref = storage.getReference("News/"+newsFeed.get("id").toString()+"/cover.jpg");
                             final Bitmap[] bitmap = new Bitmap[1];
                             try {
                                 File localFile = File.createTempFile("temp", ".jpg");
