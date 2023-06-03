@@ -99,8 +99,8 @@ public class NewsFeed extends AppCompatActivity {
                             Map<String, Object> newsFeed = snapshot.getData();
                             String day = getDate((Timestamp) newsFeed.get("date_created"));
                             Log.d(TAG, "onSuccess: " + day);
-                            data.add(new NewsData(newsFeed.get("title").toString(),day,R.drawable.bg1));
-//                            Log.d(TAG, "onSuccess: " + data);
+                            data.add(new NewsData(newsFeed.get("title").toString(),day,R.drawable.bg1,newsFeed.get("desc").toString()));
+                            Log.d(TAG, "onSuccess: " + newsFeed.get("desc").toString());
                         }
                         newsFeedRV.setAdapter(adapter);
                     }

@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textDesc"
+            android:id="@+id/newsDescTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sigmar_one"
@@ -28,7 +28,7 @@
             android:textColor="@color/black"
             android:textSize="15sp" />
         <TextView
-            android:id="@+id/Date_Desc"
+            android:id="@+id/newsDescDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sigmar_one"
@@ -44,6 +44,7 @@
             android:background="@color/black" />
 
         <TextView
+            android:id="@+id/newsDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

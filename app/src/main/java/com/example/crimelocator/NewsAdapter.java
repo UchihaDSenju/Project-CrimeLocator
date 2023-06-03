@@ -22,7 +22,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public NewsAdapter(ArrayList<NewsData> newsData, NewsFeed activity) {
         this.newsData=newsData;
         this.context=activity;
-
     }
 
     @NonNull
@@ -37,26 +36,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-     final NewsData newsDatalist = newsData.get(position);
-     holder.textView1CV.setText(newsDatalist.getNewsTitle());
-     holder.textView2Cv.setText(newsDatalist.getNewsTime());
-     holder.imageViewCV.setImageResource(newsDatalist.getNewsImage());
+     final NewsData newsDataList = newsData.get(position);
+     holder.tvNewsTitle.setText(newsDataList.getNewsTitle());
+     holder.tvNewsTime.setText(newsDataList.getNewsTime());
+     holder.imageViewCV.setImageResource(newsDataList.getNewsImage());
 
      holder.itemView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Toast.makeText(context,newsDatalist.getNewsTitle(),Toast.LENGTH_SHORT).show();
+             Toast.makeText(context,newsDataList.getNewsTitle(),Toast.LENGTH_SHORT).show();
 
              Intent intent = new Intent(context ,NewsDesc.class);
-             intent.putExtra("NAME",newsDatalist.getNewsTitle());
+             intent.putExtra("TITLE",newsDataList.getNewsTitle()).putExtra("DESC", newsDataList.getNewsDesc()).putExtra("DATE", newsDataList.getNewsTime());
              context.startActivity(intent);
-
-
-
-
-
-
-
          }
 
      });
@@ -69,15 +61,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageViewCV;
-        TextView textView1CV;
-        TextView textView2Cv;
+        TextView tvNewsTitle;
+        TextView tvNewsTime;
 
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
             imageViewCV=itemView.findViewById(R.id.imageViewCV);
-            textView1CV=itemView.findViewById(R.id.textView1CV);
-            textView2Cv=itemView.findViewById(R.id.textView2CV);
+            tvNewsTitle =itemView.findViewById(R.id.textView1CV);
+            tvNewsTime =itemView.findViewById(R.id.textView2CV);
         }
 
     }
