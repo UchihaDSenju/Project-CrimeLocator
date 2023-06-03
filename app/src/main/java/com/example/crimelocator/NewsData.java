@@ -1,12 +1,15 @@
 package com.example.crimelocator;
 
+import android.graphics.Bitmap;
+
 public class NewsData {
     private  String newsTitle;
     private String newsTime;
     private String newsDesc;
-    private int newsImage;
+    private Bitmap[] newsImage;
 
-    public NewsData(String newsTitle, String newsTime, int newsImage, String newsDesc) {
+
+    public NewsData(String newsTitle, String newsTime, Bitmap[] newsImage, String newsDesc) {
         this.newsTitle = newsTitle;
         this.newsTime = newsTime;
         this.newsImage = newsImage;
@@ -37,11 +40,11 @@ public class NewsData {
         this.newsDesc = newsDesc;
     }
 
-    public int getNewsImage() {
-        return newsImage;
+    public Bitmap getNewsImage() {
+        return newsImage[0];
     }
 
-    public void setNewsImage(int newsImage) {
+    public void setNewsImage(Bitmap[] newsImage) {
         this.newsImage = newsImage;
     }
 }

@@ -39,7 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
      final NewsData newsDataList = newsData.get(position);
      holder.tvNewsTitle.setText(newsDataList.getNewsTitle());
      holder.tvNewsTime.setText(newsDataList.getNewsTime());
-     holder.imageViewCV.setImageResource(newsDataList.getNewsImage());
+     holder.imageViewCV.setImageBitmap(newsDataList.getNewsImage());
 
      holder.itemView.setOnClickListener(new View.OnClickListener() {
          @Override
