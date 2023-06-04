@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +28,7 @@ public class NewsDesc extends AppCompatActivity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
-
+    Button helpBtn;
     ImageView coverImage;
     TextView newsTitle, newsDesc, newsDate;
     @Override
@@ -38,6 +40,19 @@ public class NewsDesc extends AppCompatActivity {
         newsDesc = findViewById(R.id.newsDesc);
         newsDate = findViewById(R.id.newsDescDate);
         coverImage =findViewById(R.id.imageDesc);
+        helpBtn =findViewById(R.id.helpButton);
+
+
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(NewsDesc.this,Doc_Upload.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 
         Intent intent=getIntent();
         String name=intent.getStringExtra("TITLE");
