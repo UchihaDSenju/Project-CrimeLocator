@@ -3,6 +3,7 @@ package com.example.crimelocator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,13 +38,14 @@ public class SignUpAct extends AppCompatActivity {
     Button registerBtn;
     TextView signInBtn;
     Boolean usernameDone=Boolean.FALSE, emailDone=Boolean.FALSE, numberDone=Boolean.FALSE,co, passwordDone=Boolean.FALSE;
-    ProgressBar progressBar;
+    ProgressBar signupProgBar;
 
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     String Email = "don@gmail.com", Password = "don@19", Username="tariq";
+
 
 
     @Override
@@ -69,7 +71,7 @@ public class SignUpAct extends AppCompatActivity {
 
         registerBtn =findViewById(R.id.register);
         signInBtn =findViewById(R.id.textsignin);
-        progressBar=findViewById(R.id.progBar);
+        signupProgBar=findViewById(R.id.signupProgBar);
 
 
         emailField.addTextChangedListener(new TextWatcher() {
@@ -217,17 +219,17 @@ public class SignUpAct extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+                signupProgBar.setVisibility(View.VISIBLE);
 
                 if(Email == "" || Password == "" || Username == ""){
                     Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    signupProgBar.setVisibility(View.GONE);
                 }
 
                 else if(!usernameDone || !emailDone || !passwordDone)
                 {
                     Toast.makeText(SignUpAct.this, "Fill All Fields Properly", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    signupProgBar.setVisibility(View.GONE);
                 }
                 else {
                     firebaseRegister(Email, Password);
@@ -267,7 +269,7 @@ public class SignUpAct extends AppCompatActivity {
 
     public void firebaseRegister(String Email, String Password){
       //  Toast.makeText(this, "Please Wait while we are Registering you...", Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.VISIBLE);
+        
         auth = FirebaseAuth.getInstance(); //Instantiate the firebaseAuth
 
         auth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -277,7 +279,7 @@ public class SignUpAct extends AppCompatActivity {
                     firebaseStoreUserDetails(Username, Email);
                 }
                 else{
-                    progressBar.setVisibility(View.GONE);
+                    signupProgBar.setVisibility(View.GONE);
                     Toast.makeText(SignUpAct.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
