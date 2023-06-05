@@ -291,7 +291,7 @@ public class SignUpAct extends AppCompatActivity {
         m.put("username", username);
         m.put("email", email);
         db.collection("Users/")
-                .document(username)
+                .document(email)
                 .set(m)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

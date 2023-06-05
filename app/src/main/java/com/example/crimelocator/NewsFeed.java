@@ -7,7 +7,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,7 +45,7 @@ public class NewsFeed extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
-    SwipeRefreshLayout swipeRefreshLayout;
+
 
 
     TextView logoutBtn;
@@ -58,7 +57,6 @@ public class NewsFeed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         progressBar=findViewById(R.id.progBar);
-        swipeRefreshLayout =findViewById(R.id.swipeRefresh);
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
 
@@ -68,16 +66,6 @@ public class NewsFeed extends AppCompatActivity {
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
 
         logoutBtn =findViewById(R.id.textLogout);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(NewsFeed.this,"refreshed",Toast.LENGTH_SHORT).show();
-                adapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-
-            }
-        });
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
