@@ -43,13 +43,15 @@ import java.util.Map;
 
 public class NewsFeed extends AppCompatActivity {
 
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
     SwipeRefreshLayout swipeRefreshLayout;
 
 
-    TextView logoutBtn;
+    TextView logoutBtn, userWelcome;
     ProgressBar progressBar;
     final Context context=this;
 
@@ -57,8 +59,16 @@ public class NewsFeed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
+
+//        Log.d(TAG, "onCreate: "+ud.getEmail() );
+
+        Intent intent = getIntent();
+
         progressBar=findViewById(R.id.progBar);
+        userWelcome = findViewById(R.id.userWelcome);
+
         swipeRefreshLayout=findViewById(R.id.swipeRefresh);
+
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
 
@@ -66,6 +76,8 @@ public class NewsFeed extends AppCompatActivity {
         RecyclerView newsFeedRV=findViewById(R.id.newsFeedRV);
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
+
+        userWelcome.setText("welcome "+ intent.getStringExtra("USERNAME"));
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

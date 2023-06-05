@@ -36,6 +36,14 @@ public class NewsDesc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_desc);
 
+        Intent dataIntent=getIntent();
+        String name=dataIntent.getStringExtra("TITLE");
+        String desc = dataIntent.getStringExtra("DESC");
+        String date = dataIntent.getStringExtra("DATE");
+        String id = dataIntent.getStringExtra("ID");
+
+
+
         newsTitle =findViewById(R.id.newsDescTitle);
         newsDesc = findViewById(R.id.newsDesc);
         newsDate = findViewById(R.id.newsDescDate);
@@ -47,18 +55,12 @@ public class NewsDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(NewsDesc.this,Doc_Upload.class);
+                intent.putExtra("ID", id);
                 startActivity(intent);
                 finish();
             }
         });
 
-
-
-        Intent intent=getIntent();
-        String name=intent.getStringExtra("TITLE");
-        String desc = intent.getStringExtra("DESC");
-        String date = intent.getStringExtra("DATE");
-        String id = intent.getStringExtra("ID");
 
         Log.d(TAG, "onCreate: "+ id);
         Bitmap[] cover = getImage("News/"+id+"/cover.jpg", coverImage);

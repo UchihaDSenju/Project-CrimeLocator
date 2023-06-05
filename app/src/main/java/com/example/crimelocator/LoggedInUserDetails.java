@@ -4,11 +4,10 @@ public class LoggedInUserDetails {
 
     String Username = "Hello";
     String Email = "traequ";
-    String Number = "";
 
-    LoggedInUserDetails(String username, String email){
-        this.Username = username;
-        this.Email = email;
+    public LoggedInUserDetails(String username, String email) {
+        Username = username;
+        Email = email;
     }
 
     public String getUsername() {
