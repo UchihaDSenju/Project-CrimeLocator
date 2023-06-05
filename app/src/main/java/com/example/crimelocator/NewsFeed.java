@@ -48,7 +48,7 @@ public class NewsFeed extends AppCompatActivity {
 
 
 
-    TextView logoutBtn;
+    TextView logoutBtn, username;
     ProgressBar progressBar;
     final Context context=this;
 
@@ -56,7 +56,11 @@ public class NewsFeed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
+
         progressBar=findViewById(R.id.progBar);
+        username = findViewById(R.id.username);
+
+
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
 
@@ -64,6 +68,9 @@ public class NewsFeed extends AppCompatActivity {
         RecyclerView newsFeedRV=findViewById(R.id.newsFeedRV);
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
+
+//        Log.d(TAG, "onCreate: "+ getIntent().getStringExtra("USERNAME"));
+        username.setText("WELCOME " + getIntent().getStringExtra("USERNAME"));
 
         logoutBtn =findViewById(R.id.textLogout);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
