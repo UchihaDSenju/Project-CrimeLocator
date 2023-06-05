@@ -49,7 +49,7 @@ public class Doc_Upload extends AppCompatActivity {
 
                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //ACTION_GET_CONTENT
                    intent.setType("*/*");
-                   startActivityForResult(intent,10);
+                   startActivityForResult(intent,10);  //reqcode
                }
            });
            
