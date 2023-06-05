@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,10 +46,10 @@ public class NewsFeed extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
-
-    TextView logoutBtn, username;
+    TextView logoutBtn;
     ProgressBar progressBar;
     final Context context=this;
 
@@ -56,11 +57,8 @@ public class NewsFeed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
-
         progressBar=findViewById(R.id.progBar);
-        username = findViewById(R.id.username);
-
-
+        swipeRefreshLayout=findViewById(R.id.swipeRefresh);
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
 
@@ -69,8 +67,17 @@ public class NewsFeed extends AppCompatActivity {
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
 
-//        Log.d(TAG, "onCreate: "+ getIntent().getStringExtra("USERNAME"));
-        username.setText("WELCOME " + getIntent().getStringExtra("USERNAME"));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                Toast.makeText(NewsFeed.this,"Refreshed",Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
         logoutBtn =findViewById(R.id.textLogout);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
