@@ -1,5 +1,7 @@
 package com.example.crimelocator;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView signUpBtn, forgotPasswordBtn;
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar mainProgressBar;
 
     FirebaseAuth auth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onStart() {
@@ -77,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin("tariq@gmail.com", "tariq@19");
-
-
+                    firebaseSignin(email, password);
                 }
             }
         });
@@ -101,12 +111,12 @@ public class MainActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            mainProgressBar.setVisibility(View.GONE);
-                            FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(MainActivity.this,user+" Signed in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, NewsFeed.class);
-                            startActivity(intent);
-                            finish();
+                            moveToNewsFeed(email);
+//                            FirebaseUser user = auth.getCurrentUser();
+//                            Toast.makeText(MainActivity.this,userName+" Signed in Successfully", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(MainActivity.this, NewsFeed.class);
+//                            startActivity(intent);
+//                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -116,6 +126,26 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void moveToNewsFeed(String email){
+        db.document("Users/"+email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String username;
+                        username = documentSnapshot.get("username").toString();
+                        Log.d(TAG, "onSuccess: Username Retrieved "+username);
+                        mainProgressBar.setVisibility(View.GONE);
+                        Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, NewsFeed.class);
+                        intent.putExtra("USERNAME", username);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
     }
 }
 

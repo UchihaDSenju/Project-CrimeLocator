@@ -50,6 +50,11 @@
         android:id="@+id/progBar">
 
     </ProgressBar>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/swipeRefresh">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -57,4 +62,5 @@
         android:layout_marginTop="5dp"
         android:layout_margin="10dp"
         android:id="@+id/newsFeedRV"/>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

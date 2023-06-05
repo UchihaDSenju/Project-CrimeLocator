@@ -7,12 +7,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.Tag;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +44,12 @@ import java.util.Map;
 public class NewsFeed extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    TextView textLogout;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference ref;
+    SwipeRefreshLayout swipeRefreshLayout;
+
+
+    TextView logoutBtn;
     ProgressBar progressBar;
     final Context context=this;
 
@@ -47,6 +58,7 @@ public class NewsFeed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         progressBar=findViewById(R.id.progBar);
+        swipeRefreshLayout=findViewById(R.id.swipeRefresh);
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
 
@@ -55,8 +67,20 @@ public class NewsFeed extends AppCompatActivity {
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
 
-        textLogout=findViewById(R.id.textLogout);
-        textLogout.setOnClickListener(new View.OnClickListener() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                Toast.makeText(NewsFeed.this,"Refreshed",Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+        logoutBtn =findViewById(R.id.textLogout);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert=new AlertDialog.Builder(context);
@@ -92,17 +116,42 @@ public class NewsFeed extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        progressBar.setVisibility(View.GONE);
                         Log.d("", "onSuccess: getting Documents");
                         List<DocumentSnapshot> snapshots = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot snapshot : snapshots){
                             Map<String, Object> newsFeed = snapshot.getData();
                             String day = getDate((Timestamp) newsFeed.get("date_created"));
-                            Log.d(TAG, "onSuccess: " + day);
-                            data.add(new NewsData(newsFeed.get("title").toString(),day,R.drawable.bg1));
-//                            Log.d(TAG, "onSuccess: " + data);
+//                            Log.d(TAG, "onSuccess: " + newsFeed);
+                            ref = storage.getReference("News/"+newsFeed.get("id").toString()+"/cover.jpg");
+                            final Bitmap[] bitmap = new Bitmap[1];
+                            try {
+                                File localFile = File.createTempFile("temp", ".jpg");
+
+                                ref.getFile(localFile)
+                                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                Log.d(TAG, "onSuccess: fetched Image");
+                                                data.add(new NewsData(newsFeed.get("title").toString(),day,bitmap,newsFeed.get("desc").toString(), newsFeed.get("id").toString()));
+                                                newsFeedRV.setAdapter(adapter);
+                                                Log.d(TAG, "Image id: " + newsFeed.get("id").toString());
+                                                progressBar.setVisibility(View.GONE);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(NewsFeed.this, "Error in fetching Image" + e, Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onSuccess: " + bitmap.getClass());
                         }
-                        newsFeedRV.setAdapter(adapter);
+                        Log.d(TAG, "onSuccess: setting adapter");
+//                        newsFeedRV.setAdapter(adapter);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -121,10 +170,36 @@ public class NewsFeed extends AppCompatActivity {
         DateFormat f = new SimpleDateFormat("dd/MM");
         return f.format(date);
     }
+
+    public Bitmap[] addData(StorageReference ref){
+        final Bitmap[] map = new Bitmap[1];
+        try {
+            File localFile = File.createTempFile("temp", ".jpg");
+
+            ref.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            map[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                            Log.d(TAG, "onSuccess: fetched Image");
+                        }
+
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(NewsFeed.this, "Error" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }
 
 //TODO
 /*
-* Add a progressBar**
+* Use scaleType = centerCrop
 * Page Reload
 * */
