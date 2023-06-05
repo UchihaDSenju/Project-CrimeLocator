@@ -1,50 +1,48 @@
 package com.example.crimelocator;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.os.Build;
 import android.os.Bundle;
 import android.Manifest;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Downloads;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.net.URI;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class Doc_Upload extends AppCompatActivity {
 
-    Button choosebtn,uploadbtn;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference ref;
 
-    TextView text;
+    Uri imageUri;
+
+    Button chooseBtn, uploadBtn;
+    TextView fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_upload);
 
-        choosebtn=findViewById(R.id.chooseButton);
-        uploadbtn=findViewById(R.id.uploadButton);
-        text=findViewById(R.id.path);
+        chooseBtn = findViewById(R.id.chooseButton);
+        uploadBtn = findViewById(R.id.uploadButton);
+        fileName = findViewById(R.id.fileName);
 
         ActivityCompat.requestPermissions(Doc_Upload.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PackageManager.PERMISSION_GRANTED);
 
 
-           choosebtn.setOnClickListener(new View.OnClickListener() {
+           chooseBtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
 
@@ -54,10 +52,27 @@ public class Doc_Upload extends AppCompatActivity {
                    startActivityForResult(intent,10);
                }
            });
+           
+           uploadBtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if(imageUri == null){
+                       Toast.makeText(Doc_Upload.this, "Choose an Image", Toast.LENGTH_SHORT).show();
+                   }
+                   else{
+                       if(fileName.getText() == null){
+                           Toast.makeText(Doc_Upload.this, "Enter a file name", Toast.LENGTH_SHORT).show();
+                       }
+                       else{
+                           Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
+                       }
+                   }
+               }
+           });
     }
 
-
-
+    
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -65,7 +80,7 @@ public class Doc_Upload extends AppCompatActivity {
         switch (requestCode) {
             case 10:
                 if (resultCode == RESULT_OK) {
-                    Uri path = data.getData();
+                    imageUri = data.getData();
                 }
                 break;
         }

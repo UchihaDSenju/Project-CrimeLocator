@@ -41,11 +41,11 @@
                 android:textSize="20dp"
                 app:cornerRadius="6dp" />
             <EditText
-                android:id="@+id/path"
+                android:id="@+id/fileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito"
-                android:hint="file path"
+                android:hint="file name"
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
                 android:textSize="15sp" />
