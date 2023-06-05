@@ -10,86 +10,95 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="553dp">
 
-        <TextView
-            android:id="@+id/newsDescTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sigmar_one"
-            android:gravity="start"
-            android:text="News Heading"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/newsDescDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sigmar_one"
-            android:gravity="start"
-            android:text="Date Here"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical"
+            >
 
-        <ImageView
-            android:id="@+id/imageDesc"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:background="@color/black"
-            android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/newsDescTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sigmar_one"
+                android:gravity="start"
+                android:text="News Heading"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/newsDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/nunito"
-            android:text="Contrary to popular belief Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum\ (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32."
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/newsDescDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sigmar_one"
+                android:gravity="start"
+                android:text="Date Here"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imageDesc"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="@color/black"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/newsDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito"
+                android:text="Contrary to popular belief Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum\ (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32."
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
 
-        <TextView
-            android:id="@+id/Gallery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sigmar_one"
-            android:gravity="center"
-            android:text="Gallery"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
+            <TextView
+                android:id="@+id/Gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sigmar_one"
+                android:gravity="center"
+                android:text="Gallery"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:id="@+id/GalleryImg"
-            android:background="@color/black"
-            />
-        <ImageView
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:id="@+id/GalleryImg2"
-            android:background="@color/black"
-            />
-        <Button
+            <ImageView
+                android:id="@+id/GalleryImg"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:id="@+id/GalleryImg2"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+
+            android:layout_alignParentBottom="true"
+            android:descendantFocusability="beforeDescendants"
             android:id="@+id/helpButton"
             android:layout_width="match_parent"
+        android:layout_marginRight="30dp"
+        android:layout_centerInParent="true"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
             android:backgroundTint="#CA7A03"
             android:fontFamily="@font/sigmar_one"
             android:text="I WOULD LIKE TO HELP"
-            android:textSize="20dp"
+            android:textSize="15dp"
             app:cornerRadius="6dp" />
-    </LinearLayout>
-    </ScrollView>
+
 
 </RelativeLayout>
