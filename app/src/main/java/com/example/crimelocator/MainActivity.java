@@ -32,6 +32,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+
     TextView signUpBtn, forgotPasswordBtn;
     Button signInBtn, adminLogin;
     TextInputEditText email, password;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         getSupportActionBar().hide();
 
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin(email, password);
+                    firebaseSignin("besanto@gmail.com", "besanto@02");
                 }
             }
         });
@@ -140,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         mainProgressBar.setVisibility(View.GONE);
                         Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, NewsFeed.class);
+                        LoggedInUserDetails ud = new LoggedInUserDetails(username, email);
                         intent.putExtra("USERNAME", username);
                         intent.putExtra("EMAIL", email);
                         startActivity(intent);

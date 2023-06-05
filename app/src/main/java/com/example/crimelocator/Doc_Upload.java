@@ -1,5 +1,7 @@
 package com.example.crimelocator;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,6 +39,10 @@ public class Doc_Upload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_upload);
+
+        Intent intent = getIntent();
+
+        Log.d(TAG, "onCreate: "+ intent.getStringExtra("EMAIL"));
 
         chooseBtn = findViewById(R.id.chooseButton);
         uploadBtn = findViewById(R.id.uploadButton);
