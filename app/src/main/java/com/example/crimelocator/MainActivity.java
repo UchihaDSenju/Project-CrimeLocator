@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, NewsFeed.class);
                         intent.putExtra("USERNAME", username);
+                        intent.putExtra("EMAIL", email);
                         startActivity(intent);
                         finish();
                     }
