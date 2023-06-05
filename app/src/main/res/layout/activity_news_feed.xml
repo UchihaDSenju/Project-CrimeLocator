@@ -12,6 +12,7 @@
 
 
     <TextView
+        android:id="@+id/userWelcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
@@ -53,7 +54,8 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/swipeRefresh">
+    android:id="@+id/swipeRefresh"
+    tools:ignore="MissingClass">
 
 
     <androidx.recyclerview.widget.RecyclerView

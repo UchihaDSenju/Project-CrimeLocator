@@ -1,5 +1,6 @@
 package com.example.crimelocator;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,8 +16,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class Doc_Upload extends AppCompatActivity {
 
@@ -65,6 +69,20 @@ public class Doc_Upload extends AppCompatActivity {
                        }
                        else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
+                           ref = storage.getReference("News/1/userHelps/user/demo.jpg");
+                           ref.putFile(imageUri)
+                                   .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                       @Override
+                                       public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                           Toast.makeText(Doc_Upload.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                                       }
+                                   })
+                                   .addOnFailureListener(new OnFailureListener() {
+                                       @Override
+                                       public void onFailure(@NonNull Exception e) {
+                                           Toast.makeText(Doc_Upload.this, "Error while uploading file", Toast.LENGTH_SHORT).show();
+                                       }
+                                   });
                        }
                    }
                }
