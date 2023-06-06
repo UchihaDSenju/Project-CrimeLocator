@@ -43,30 +43,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#BDBDBD"
-
-                android:orientation="horizontal"
+                android:background="@color/primary_bg"
+                android:orientation="vertical"
                 >
                 <TextView
+                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="News Description"
                     android:id="@+id/textView1CV"
                     android:textSize="20dp"
-                    android:background="#BDBDBD"
                     android:gravity="left"/>
 
-            </LinearLayout>
+
 
             <TextView
-
+                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:background="#BDBDBD"
-                 android:id="@+id/textView2CV"
+                android:id="@+id/textView2CV"
                 android:text="10 hrs ago"/>
-
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

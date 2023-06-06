@@ -39,6 +39,7 @@ public class Doc_Upload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_upload);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
 

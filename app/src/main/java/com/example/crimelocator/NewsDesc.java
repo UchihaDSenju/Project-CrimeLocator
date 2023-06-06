@@ -35,6 +35,7 @@ public class NewsDesc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_desc);
+        getSupportActionBar().hide();
 
         Intent dataIntent=getIntent();
         String name=dataIntent.getStringExtra("TITLE");
