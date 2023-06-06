@@ -79,7 +79,8 @@ public class Doc_Upload extends AppCompatActivity {
                        }
                        else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
-                           ref = storage.getReference("News/" + id + "/userHelps/" + email + "/demo.jpg");
+                           String docName = fileName.getText().toString();
+                           ref = storage.getReference("News/" + id + "/userHelps/" + email + "/"+docName+".jpg");
                            ref.putFile(imageUri)
                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                        @Override
