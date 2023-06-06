@@ -57,7 +57,9 @@ public class NewsDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(NewsDesc.this,Doc_Upload.class);
-                intent.putExtra("ID", id);
+                intent
+                        .putExtra("ID", id)
+                        .putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
             }

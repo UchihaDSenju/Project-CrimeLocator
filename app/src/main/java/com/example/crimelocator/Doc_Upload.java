@@ -42,6 +42,8 @@ public class Doc_Upload extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Intent intent = getIntent();
+        String email = intent.getStringExtra("EMAIL");
+        String id = intent.getStringExtra("ID");
 
         Log.d(TAG, "onCreate: "+ intent.getStringExtra("EMAIL"));
 
@@ -77,7 +79,7 @@ public class Doc_Upload extends AppCompatActivity {
                        }
                        else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
-                           ref = storage.getReference("News/1/userHelps/user/demo.jpg");
+                           ref = storage.getReference("News/" + id + "/userHelps/" + email + "/demo.jpg");
                            ref.putFile(imageUri)
                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                        @Override
