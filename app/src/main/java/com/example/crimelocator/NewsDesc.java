@@ -4,7 +4,10 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,11 +34,14 @@ public class NewsDesc extends AppCompatActivity {
     Button helpBtn;
     ImageView coverImage;
     TextView newsTitle, newsDesc, newsDate;
+    RecyclerView galleryView;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_desc);
         getSupportActionBar().hide();
+
 
         Intent dataIntent=getIntent();
         String name=dataIntent.getStringExtra("TITLE");
@@ -51,6 +57,21 @@ public class NewsDesc extends AppCompatActivity {
         newsDate = findViewById(R.id.newsDescDate);
         coverImage =findViewById(R.id.imageDesc);
         helpBtn =findViewById(R.id.helpButton);
+
+        galleryView=findViewById(R.id.galleryView);
+        galleryView.setHasFixedSize(true);
+        galleryView.setLayoutManager(new LinearLayoutManager(this));
+
+        galleryData[] galleryData=new galleryData[]{
+                new galleryData(R.drawable.bg),
+                new galleryData(R.drawable.casemateback),
+                new galleryData(R.drawable.back),
+                new galleryData(R.drawable.demo3),
+                new galleryData(R.drawable.crimecon),
+        };
+
+        galleryAdapter galleryAdapter =new galleryAdapter(galleryData,NewsDesc.this);
+        galleryView.setAdapter(galleryAdapter);
 
 
         helpBtn.setOnClickListener(new View.OnClickListener() {
