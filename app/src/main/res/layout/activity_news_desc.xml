@@ -69,20 +69,12 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
 
-            <ImageView
-                android:id="@+id/GalleryImg"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:background="@color/black" />
 
-            <ImageView
-                android:id="@+id/GalleryImg2"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/black"
 
-                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/galleryView"/>
             <TextView
                 android:id="@+id/newsDesc1"
                 android:layout_width="match_parent"

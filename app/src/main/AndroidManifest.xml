@@ -18,13 +18,6 @@
         android:theme="@style/Theme.CrimeLocator"
         tools:targetApi="31">
         <activity
-            android:name=".Gallery_View"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Doc_Upload"
             android:exported="false">
             <meta-data
