@@ -116,11 +116,6 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             moveToNewsFeed(email);
-//                            FirebaseUser user = auth.getCurrentUser();
-//                            Toast.makeText(MainActivity.this,userName+" Signed in Successfully", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(MainActivity.this, NewsFeed.class);
-//                            startActivity(intent);
-//                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
