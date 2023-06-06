@@ -290,6 +290,7 @@ public class SignUpAct extends AppCompatActivity {
         Map<String, Object> m = new HashMap<>();
         m.put("username", username);
         m.put("email", email);
+        m.put("isAdmin", false);
         db.collection("Users/")
                 .document(email)
                 .set(m)

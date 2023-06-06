@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin("besanto@gmail.com", "besanto@02");
+                    firebaseSignin(email,password);
                 }
             }
         });
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         String username;
                         username = documentSnapshot.get("username").toString();
+                        boolean isAdmin = (boolean)documentSnapshot.get("isAdmin");
                         Log.d(TAG, "onSuccess: Username Retrieved "+username);
                         mainProgressBar.setVisibility(View.GONE);
                         Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();

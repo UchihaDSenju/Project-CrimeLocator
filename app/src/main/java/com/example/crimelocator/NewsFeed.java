@@ -64,6 +64,8 @@ public class NewsFeed extends AppCompatActivity {
 
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
+        String username = intent.getStringExtra("USERNAME");
+        boolean isAdmin = intent.getBooleanExtra("ADMIN",false);
 
         progressBar=findViewById(R.id.progBar);
         userWelcome = findViewById(R.id.userWelcome);
@@ -78,7 +80,9 @@ public class NewsFeed extends AppCompatActivity {
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
 
-        userWelcome.setText("welcome "+ intent.getStringExtra("USERNAME"));
+        if(username == null) userWelcome.setText("Welcome User");
+        else if(username == "AdminCM") userWelcome.setText("Welcome Admin");
+        else userWelcome.setText("Welcome "+username);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
