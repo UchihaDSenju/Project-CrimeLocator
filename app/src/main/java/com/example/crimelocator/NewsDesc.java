@@ -41,6 +41,7 @@ public class NewsDesc extends AppCompatActivity {
         String desc = dataIntent.getStringExtra("DESC");
         String date = dataIntent.getStringExtra("DATE");
         String id = dataIntent.getStringExtra("ID");
+        String email = dataIntent.getStringExtra("EMAIL");
 
 
 
@@ -62,7 +63,7 @@ public class NewsDesc extends AppCompatActivity {
         });
 
 
-        Log.d(TAG, "onCreate: "+ id);
+        Log.d(TAG, "onCreate: "+ id + " " + email);
         Bitmap[] cover = getImage("News/"+id+"/cover.jpg", coverImage);
 
         newsTitle.setText(name);
