@@ -59,6 +59,7 @@ public class NewsFeed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
+        getSupportActionBar().hide();
 
 //        Log.d(TAG, "onCreate: "+ud.getEmail() );
 
