@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         String username;
                         username = documentSnapshot.get("username").toString();
-                        int isAdmin = (int)documentSnapshot.get("isAdmin");
+                        boolean isAdmin = (boolean)documentSnapshot.get("isAdmin");
                         Log.d(TAG, "onSuccess: Username Retrieved "+username);
                         mainProgressBar.setVisibility(View.GONE);
                         Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();

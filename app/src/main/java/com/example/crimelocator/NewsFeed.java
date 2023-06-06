@@ -65,6 +65,7 @@ public class NewsFeed extends AppCompatActivity {
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
         String username = intent.getStringExtra("USERNAME");
+        boolean isAdmin = intent.getBooleanExtra("ADMIN",false);
 
         progressBar=findViewById(R.id.progBar);
         userWelcome = findViewById(R.id.userWelcome);
