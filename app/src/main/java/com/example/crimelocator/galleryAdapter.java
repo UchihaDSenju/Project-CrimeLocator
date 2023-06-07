@@ -36,7 +36,7 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
 
       final galleryData galleryDataList= gallery.get(position);
       holder.galleryImage.setImageBitmap(galleryDataList.getGalleryImage());
-      holder.galleryDesc.setText("saheel");
+      holder.galleryDesc.setText(galleryDataList.getDesc());
 
       holder.itemView.setOnClickListener(new View.OnClickListener() {
           @Override
