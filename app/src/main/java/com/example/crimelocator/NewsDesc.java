@@ -31,7 +31,7 @@ public class NewsDesc extends AppCompatActivity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
-    Button helpBtn;
+    Button helpBtn,adminhelpbtn;
     ImageView coverImage;
     TextView newsTitle, newsDesc, newsDate;
     RecyclerView galleryView;

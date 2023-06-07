@@ -102,6 +102,7 @@
             android:id="@+id/helpButton"
             android:layout_width="match_parent"
         android:layout_marginRight="30dp"
+        android:visibility="gone"
         android:layout_centerInParent="true"
             android:layout_height="wrap_content"
             android:backgroundTint="#CA7A03"
@@ -109,6 +110,20 @@
             android:text="I WOULD LIKE TO HELP"
             android:textSize="15dp"
             app:cornerRadius="6dp" />
+    <Button
+
+        android:layout_alignParentBottom="true"
+        android:id="@+id/adminhelpButton"
+        android:layout_width="match_parent"
+        android:layout_marginRight="30dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#CA7A03"
+        android:fontFamily="@font/sigmar_one"
+        android:text="View help list"
+        android:textSize="15dp"
+        app:cornerRadius="6dp" />
 
 
 </RelativeLayout>

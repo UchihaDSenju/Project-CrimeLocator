@@ -313,42 +313,4 @@ public class SignUpAct extends AppCompatActivity {
 }
 
 
-//    private void createNotify()
-//    {
-//        String id="Crime Locate";
-//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            NotificationChannel channel = manager.getNotificationChannel(id);
-//            if(channel==null) {
-//                channel=new NotificationChannel(id,"Crime Locate",NotificationManager.IMPORTANCE_HIGH);
-//                channel.setDescription("Crime Locate and ");
-//                channel.enableVibration(true);
-//                channel.setVibrationPattern(new long[]{100,1000,200,340});
-//                channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-//                manager.createNotificationChannel(channel);}}
-//        Intent intent = new Intent(this,demo.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        PendingIntent pendingIntent=null;
-//        if(android.os.Build.VERSION.SDK_INT >=  android.os.Build.VERSION_CODES.S){
-//            pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_MUTABLE);
-//        }else{
-//            pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
-//        }
-//        NotificationCompat.Builder builder=new NotificationCompat.Builder(this,id)
-//                .setSmallIcon(R.drawable.crimelogo)
-//                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.back))
-//                .setStyle(new NotificationCompat.BigPictureStyle()
-//                        .bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.back))
-//                        .bigLargeIcon(null))
-//                .setContentTitle("Crime Locate")
-//                .setContentText("Hello from Crime Locate.You have Signed up and logged in")
-//                .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                .setVibrate(new long[]{100,1000,200,340})
-//                .setAutoCancel(false) //if true tap to close.but false swipe to close
-//                .setTicker("Notification");
-//        builder.setContentIntent(pendingIntent);
-//        NotificationManagerCompat m=NotificationManagerCompat.from(getApplicationContext());
-//        m.notify(new Random().nextInt(),builder.build()); //new Random.nextInt(),..for multiple notification
-//    }
-
 
