@@ -59,13 +59,11 @@ public class SignUpAct extends AppCompatActivity {
         TextInputLayout emailLayout=findViewById(R.id.emailLayout);
         TextInputLayout passwordLayout=findViewById(R.id.passwordLayout);
         TextInputLayout confirmPasswordLayout =findViewById(R.id.confirmPasswordLayout);
-    //    TextInputLayout numberLayout=findViewById(R.id.numberLayout);
 
         TextInputEditText usernameField =findViewById(R.id.username); // usernameField
         TextInputEditText emailField = findViewById(R.id.email);    // Email
         TextInputEditText passwordField=findViewById(R.id.password);   //passwordField
         TextInputEditText confirmPasswordField =findViewById(R.id.confirmPassword);  //confirm passwordField
-    //    TextInputEditText numberField =findViewById(R.id.number);   // mobile
 
 
 
@@ -103,27 +101,6 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
-
-//        numberField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                String numberFieldText = numberField.getText().toString();
-//                if(numberFieldText.length()>10){
-//                    numberField.setError("Enter Less than 10 numbers");//red
-//                    numberField.setText("");
-//                }
-//                else if (numberFieldText.length()==10){
-//                    numberLayout.setHelperText("verified");//color
-//                    numberDone=Boolean.TRUE;
-//                }
-//                else {
-//                    numberLayout.setError("Enter 10 numbers");
-//                    numberDone=Boolean.FALSE;
-//                }}
-//            @Override
-//            public void afterTextChanged(Editable editable) {}});
 
         passwordField.addTextChangedListener(new TextWatcher() {
             @Override
