@@ -102,7 +102,7 @@
             android:id="@+id/helpButton"
             android:layout_width="match_parent"
         android:layout_marginRight="30dp"
-        android:visibility="gone"
+
         android:layout_centerInParent="true"
             android:layout_height="wrap_content"
             android:backgroundTint="#CA7A03"

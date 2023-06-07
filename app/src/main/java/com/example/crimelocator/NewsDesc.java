@@ -57,6 +57,7 @@ public class NewsDesc extends AppCompatActivity {
         newsDate = findViewById(R.id.newsDescDate);
         coverImage =findViewById(R.id.imageDesc);
         helpBtn =findViewById(R.id.helpButton);
+        adminhelpbtn=findViewById(R.id.adminhelpButton);
 
         galleryView=findViewById(R.id.galleryView);
         galleryView.setHasFixedSize(true);
@@ -83,6 +84,8 @@ public class NewsDesc extends AppCompatActivity {
                         .putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
+//                adminhelpbtn.setVisibility(View.VISIBLE);
+//                helpBtn.setVisibility(View.GONE);
             }
         });
 

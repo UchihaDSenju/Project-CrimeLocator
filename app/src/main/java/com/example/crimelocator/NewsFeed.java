@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ public class NewsFeed extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
     SwipeRefreshLayout swipeRefreshLayout;
-
+    Button adminAddBtn;
 
     TextView logoutBtn, userWelcome;
     ProgressBar progressBar;
@@ -71,6 +72,7 @@ public class NewsFeed extends AppCompatActivity {
         userWelcome = findViewById(R.id.userWelcome);
 
         swipeRefreshLayout=findViewById(R.id.swipeRefresh);
+        adminAddBtn = findViewById(R.id.adminAddButton);
 
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
@@ -92,6 +94,14 @@ public class NewsFeed extends AppCompatActivity {
                 Toast.makeText(NewsFeed.this,"Refreshed",Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        adminAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsFeed.this,Add_News.class));
+                finish();
             }
         });
 
