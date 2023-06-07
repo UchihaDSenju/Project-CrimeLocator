@@ -107,7 +107,7 @@ public class Doc_Upload extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()){
                             users = (ArrayList<String>) snapshot.getData().get("users");
-                            Log.d(TAG, "onSuccess: "+ users);
+                            Log.d(TAG, "onSuccess: "+ snapshot.getData().get("users"));
                         }
                         if(users.contains(email)) {
                             Log.d(TAG, "onSuccess: Already Helped");
