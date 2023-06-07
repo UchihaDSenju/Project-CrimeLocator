@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,7 @@ public class Doc_Upload extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
+    RecyclerView userUploadView;
     ArrayList<String> users = new ArrayList<>();
 
 
@@ -66,6 +68,7 @@ public class Doc_Upload extends AppCompatActivity {
         chooseBtn = findViewById(R.id.chooseButton);
         uploadBtn = findViewById(R.id.uploadButton);
         fileName = findViewById(R.id.fileName);
+        userUploadView=findViewById(R.id.userUploadView);
 
         ActivityCompat.requestPermissions(Doc_Upload.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},

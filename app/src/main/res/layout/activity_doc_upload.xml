@@ -82,6 +82,19 @@
                 android:text="upload "
                 android:textSize="20dp"
                 app:cornerRadius="6dp" />
+            <TextView
+                android:id="@+id/yourUploads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sigmar_one"
+                android:gravity="center"
+                android:text="Your Uploads"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userUploadView"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

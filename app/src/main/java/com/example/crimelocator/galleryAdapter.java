@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
 
       final galleryData galleryDataList= gallery.get(position);
       holder.galleryImage.setImageBitmap(galleryDataList.getGalleryImage());
+      holder.galleryDesc.setText("saheel");
 
       holder.itemView.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -55,10 +57,13 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView galleryImage;
+        TextView galleryDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             galleryImage =itemView.findViewById(R.id.galleryImg);
+            galleryDesc=itemView.findViewById(R.id.galleryDesc);
+
         }
     }
 }
