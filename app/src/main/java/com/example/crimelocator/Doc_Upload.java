@@ -21,14 +21,24 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Doc_Upload extends AppCompatActivity {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
+    ArrayList<String> users = new ArrayList<>();
+
 
     Uri imageUri;
 
@@ -41,9 +51,15 @@ public class Doc_Upload extends AppCompatActivity {
         setContentView(R.layout.activity_doc_upload);
         getSupportActionBar().hide();
 
+
+        Log.d(TAG, "onCreate: in app" + users);
+
+
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
         String id = intent.getStringExtra("ID");
+
+        String dbPath = "News/"+id+"/userHelps";
 
         Log.d(TAG, "onCreate: "+ intent.getStringExtra("EMAIL"));
 
@@ -63,7 +79,7 @@ public class Doc_Upload extends AppCompatActivity {
 
                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //ACTION_GET_CONTENT
                    intent.setType("*/*");
-                   startActivityForResult(intent,10);  //reqcode
+                   startActivityForResult(intent,10);  //reqCode
                }
            });
            
@@ -85,6 +101,27 @@ public class Doc_Upload extends AppCompatActivity {
                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                        @Override
                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                           db.collection(dbPath)
+                                                   .get()
+                                                   .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                       @Override
+                                                       public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                           for(DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()){
+                                                               users = (ArrayList<String>) snapshot.getData().get("users");
+                                                               Log.d(TAG, "onSuccess: "+ users);
+                                                           }
+                                                           if(users.contains(email))
+                                                               Log.d(TAG, "onSuccess: Already Helped");
+                                                           else{
+                                                               users.add(email);
+                                                               Map<String, ArrayList<String>> usersList = new HashMap<>();
+                                                               usersList.put("users",users);
+                                                               db.collection(dbPath)
+                                                                       .document("userHelps")
+                                                                       .set(usersList);
+                                                           }
+                                                       }
+                                                   });
                                            Toast.makeText(Doc_Upload.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                                        }
                                    })
@@ -114,4 +151,5 @@ public class Doc_Upload extends AppCompatActivity {
                 break;
         }
     }
+
 }
