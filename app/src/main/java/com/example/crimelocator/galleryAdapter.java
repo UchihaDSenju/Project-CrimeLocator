@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHolder>{
     ArrayList<galleryData> gallery;
     Context context;
-    public galleryAdapter(ArrayList<galleryData> gallery, NewsDesc newsDesc) {
+    public galleryAdapter(ArrayList<galleryData> gallery, Context context) {
      this.gallery = gallery;
-     this.context=newsDesc;
+     this.context=context;
 
     }
 

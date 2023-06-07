@@ -6,10 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
@@ -17,6 +20,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +29,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +47,14 @@ public class Doc_Upload extends AppCompatActivity {
     StorageReference ref;
     RecyclerView userUploadView;
     ArrayList<String> users = new ArrayList<>();
+    ArrayList<galleryData> userGallery = new ArrayList<>();
 
 
     Uri imageUri;
 
     Button chooseBtn, uploadBtn;
     TextView fileName;
+    EditText descEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +71,18 @@ public class Doc_Upload extends AppCompatActivity {
         String id = intent.getStringExtra("ID");
 
         String dbPath = "News/"+id+"/userHelps";
+        String storagePath = "News/" + id + "/userHelps/" + email + "/";
 
         Log.d(TAG, "onCreate: "+ intent.getStringExtra("EMAIL"));
 
         chooseBtn = findViewById(R.id.chooseButton);
         uploadBtn = findViewById(R.id.uploadButton);
         fileName = findViewById(R.id.fileName);
+        descEditText = findViewById(R.id.descEditText);
+
         userUploadView=findViewById(R.id.userUploadView);
+        userUploadView.setHasFixedSize(true);
+        userUploadView.setLayoutManager(new LinearLayoutManager(this));
 
         ActivityCompat.requestPermissions(Doc_Upload.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -85,6 +99,22 @@ public class Doc_Upload extends AppCompatActivity {
                    startActivityForResult(intent,10);  //reqCode
                }
            });
+
+        db.collection(dbPath)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()){
+                            users = (ArrayList<String>) snapshot.getData().get("users");
+                            Log.d(TAG, "onSuccess: "+ users);
+                        }
+                        if(users.contains(email)) {
+                            Log.d(TAG, "onSuccess: Already Helped");
+                            setDocsInGallery("News/"+id+"/userDocs/users/"+email, storagePath, userGallery);
+                        }
+                    }
+                });
            
            uploadBtn.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -99,6 +129,7 @@ public class Doc_Upload extends AppCompatActivity {
                        else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
                            String docName = fileName.getText().toString();
+                           String docDesc = descEditText.getText().toString();
                            ref = storage.getReference("News/" + id + "/userHelps/" + email + "/"+docName+".jpg");
                            ref.putFile(imageUri)
                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -113,8 +144,10 @@ public class Doc_Upload extends AppCompatActivity {
                                                                users = (ArrayList<String>) snapshot.getData().get("users");
                                                                Log.d(TAG, "onSuccess: "+ users);
                                                            }
-                                                           if(users.contains(email))
+                                                           if(users.contains(email)) {
                                                                Log.d(TAG, "onSuccess: Already Helped");
+                                                               setFirestoreEntry(db, "News/" + id + "/userDocs/users/"+email, docName, docDesc);
+                                                           }
                                                            else{
                                                                users.add(email);
                                                                Map<String, ArrayList<String>> usersList = new HashMap<>();
@@ -140,8 +173,54 @@ public class Doc_Upload extends AppCompatActivity {
            });
     }
 
-    
-    
+    private void setFirestoreEntry(FirebaseFirestore db ,String dbPath, String docName, String docDesc) {
+        Map<String, Object> m = new HashMap<>();
+        m.put("name", docName);
+        m.put("desc", docDesc);
+        db.collection(dbPath)
+                .document(docName)
+                .set(m)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(Doc_Upload.this, "Firebase Storage updated Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void setDocsInGallery(String dbPath, String storagePath, ArrayList<galleryData> userGallery) {
+        db.collection(dbPath)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot snapshot: queryDocumentSnapshots.getDocuments()){
+                            String imgName = snapshot.getData().get("name").toString();
+                            String desc = snapshot.getData().get("desc").toString();
+                            ref = storage.getReference(storagePath+imgName+".jpg");
+                            final Bitmap[] uploadPhoto = new Bitmap[1];
+                            try {
+                                File localFile = File.createTempFile("temp", ".jpg");
+                                ref.getFile(localFile)
+                                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                uploadPhoto[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                userGallery.add(new galleryData(uploadPhoto[0], desc));
+                                                galleryAdapter adapter = new galleryAdapter(userGallery, Doc_Upload.this);
+                                                userUploadView.setAdapter(adapter);
+                                            }
+                                        });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onGallery: "+ snapshot.getData().get("name"));
+                        }
+                    }
+                });
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -154,5 +233,6 @@ public class Doc_Upload extends AppCompatActivity {
                 break;
         }
     }
+
 
 }
