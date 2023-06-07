@@ -155,13 +155,14 @@ public class NewsDesc extends AppCompatActivity {
                         for(DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
                             Map<String, Object> imageData = snapshot.getData();
                             String imageName = imageData.get("name").toString();
+                            String desc = imageData.get("desc").toString();
                             Log.d(TAG, "onSuccess: "+imageName);
-                            setGalleryImage(id, imageName, gallery);
+                            setGalleryImage(id, imageName, gallery, desc);
                         }
                     }
                 });
     }
-    public void setGalleryImage(String id, String image, ArrayList<galleryData> gallery){
+    public void setGalleryImage(String id, String image, ArrayList<galleryData> gallery, String desc){
 
         ref = storage.getReference("News/"+id+"/gallery/"+image+".jpg");
         final Bitmap[] galleryPhoto = new Bitmap[1];
@@ -175,7 +176,7 @@ public class NewsDesc extends AppCompatActivity {
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Log.d(TAG, "onSuccess: Fetched Image "+image);
                             galleryPhoto[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                            gallery.add(new galleryData(galleryPhoto[0]));
+                            gallery.add(new galleryData(galleryPhoto[0], desc));
                             Log.d(TAG, "setGalleryImage: Setting up image "+image);
                             galleryAdapter adapter = new galleryAdapter(gallery, NewsDesc.this);
                             galleryView.setAdapter(adapter);
