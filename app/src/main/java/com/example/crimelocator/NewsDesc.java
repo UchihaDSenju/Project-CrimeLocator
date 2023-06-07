@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ public class NewsDesc extends AppCompatActivity {
     ImageView coverImage;
     TextView newsTitle, newsDesc, newsDate;
     RecyclerView galleryView;
+    ProgressBar galleryProgBar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,6 +68,7 @@ public class NewsDesc extends AppCompatActivity {
         coverImage =findViewById(R.id.imageDesc);
         helpBtn =findViewById(R.id.helpButton);
         adminHelpBtn =findViewById(R.id.adminHelpButton);
+        galleryProgBar = findViewById(R.id.galleryProgBar);
 
         galleryView=findViewById(R.id.galleryView);
         galleryView.setHasFixedSize(true);
@@ -166,12 +169,14 @@ public class NewsDesc extends AppCompatActivity {
                             String desc = imageData.get("desc").toString();
                             Log.d(TAG, "onSuccess: "+imageName);
                             setGalleryImage(id, imageName, gallery, desc);
+
                         }
                     }
                 });
     }
     public void setGalleryImage(String id, String image, ArrayList<galleryData> gallery, String desc){
 
+        galleryProgBar.setVisibility(View.VISIBLE);
         ref = storage.getReference("News/"+id+"/gallery/"+image+".jpg");
         final Bitmap[] galleryPhoto = new Bitmap[1];
         try {
@@ -188,6 +193,7 @@ public class NewsDesc extends AppCompatActivity {
                             Log.d(TAG, "setGalleryImage: Setting up image "+image);
                             galleryAdapter adapter = new galleryAdapter(gallery, NewsDesc.this);
                             galleryView.setAdapter(adapter);
+                            galleryProgBar.setVisibility(View.GONE);
                             Log.d(TAG, "onSuccess: Image set up");
                         }
                     });

@@ -70,6 +70,13 @@
                     android:inputType="textMultiLine"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:id="@+id/uploadProgBar"/>
             <Button
                 android:id="@+id/uploadButton"
                 android:layout_width="wrap_content"
@@ -91,6 +98,13 @@
                 android:text="Your Uploads"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:id="@+id/userUploadProgBar"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
