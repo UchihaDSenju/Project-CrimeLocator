@@ -50,7 +50,7 @@ public class NewsFeed extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
     SwipeRefreshLayout swipeRefreshLayout;
-    Button adminAddBtn;
+    Button adminNewsAddBtn;
 
     TextView logoutBtn, userWelcome;
     ProgressBar progressBar;
@@ -72,7 +72,11 @@ public class NewsFeed extends AppCompatActivity {
         userWelcome = findViewById(R.id.userWelcome);
 
         swipeRefreshLayout=findViewById(R.id.swipeRefresh);
-        adminAddBtn = findViewById(R.id.adminAddButton);
+        adminNewsAddBtn = findViewById(R.id.adminAddButton);
+
+        if(!isAdmin){
+            adminNewsAddBtn.setVisibility(View.GONE);
+        }
 
         ArrayList<NewsData> data = new ArrayList<>();
         NewsAdapter adapter= new NewsAdapter(data,NewsFeed.this);
@@ -82,7 +86,11 @@ public class NewsFeed extends AppCompatActivity {
         newsFeedRV.setHasFixedSize(true);
         newsFeedRV.setLayoutManager(new LinearLayoutManager(this));
 
-        if(username == null) userWelcome.setText("Welcome User");
+        if(username == null) {
+            Toast.makeText(context, "No user found", Toast.LENGTH_SHORT).show();
+            userWelcome.setText("Welcome User");
+//            signOut();
+        }
         else if(username == "AdminCM") userWelcome.setText("Welcome Admin");
         else userWelcome.setText("Welcome "+username);
 
@@ -97,7 +105,7 @@ public class NewsFeed extends AppCompatActivity {
             }
         });
 
-        adminAddBtn.setOnClickListener(new View.OnClickListener() {
+        adminNewsAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(NewsFeed.this,Add_News.class));
@@ -117,11 +125,12 @@ public class NewsFeed extends AppCompatActivity {
                 alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(NewsFeed.this,MainActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(NewsFeed.this,"Successfully Logout",Toast.LENGTH_SHORT).show();
-                        finish();
+//                        FirebaseAuth.getInstance().signOut();
+//                        Intent intent = new Intent(NewsFeed.this,MainActivity.class);
+//                        startActivity(intent);
+//                        Toast.makeText(NewsFeed.this,"Successfully Logout",Toast.LENGTH_SHORT).show();
+//                        finish();
+                        signOut();
                     }
                 });
                 alert.setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -188,6 +197,14 @@ public class NewsFeed extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(NewsFeed.this,MainActivity.class);
+        startActivity(intent);
+        Toast.makeText(NewsFeed.this,"Successfully Logout",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public String getDate(Timestamp t){

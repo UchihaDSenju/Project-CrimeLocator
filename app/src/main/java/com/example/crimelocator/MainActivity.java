@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         LoggedInUserDetails ud = new LoggedInUserDetails(username, email);
                         intent.putExtra("USERNAME", username);
                         intent.putExtra("EMAIL", email);
+                        intent.putExtra("ADMIN", isAdmin);
                         startActivity(intent);
                         finish();
                     }
