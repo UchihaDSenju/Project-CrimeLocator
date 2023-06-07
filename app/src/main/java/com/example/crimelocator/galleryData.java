@@ -1,18 +1,20 @@
 package com.example.crimelocator;
 
+import android.graphics.Bitmap;
+
 public class galleryData {
 
-    private Integer galleryImage;
+    private Bitmap galleryImage;
 
-    public galleryData(Integer galleryImage) {
+    public galleryData(Bitmap galleryImage) {
         this.galleryImage = galleryImage;
     }
 
-    public Integer getGalleryImage() {
+    public Bitmap getGalleryImage() {
         return galleryImage;
     }
 
-    public void setGalleryImage(Integer galleryImage) {
+    public void setGalleryImage(Bitmap galleryImage) {
         this.galleryImage = galleryImage;
     }
 }
