@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class Doc_Upload extends AppCompatActivity {
     Button chooseBtn, uploadBtn;
     TextView fileName;
     EditText descEditText;
+    ProgressBar uploadProgBar,userUploadProgBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class Doc_Upload extends AppCompatActivity {
         uploadBtn = findViewById(R.id.uploadButton);
         fileName = findViewById(R.id.fileName);
         descEditText = findViewById(R.id.descEditText);
+        uploadProgBar = findViewById(R.id.uploadProgBar);
+        userUploadProgBar = findViewById(R.id.userUploadProgBar);
 
         userUploadView=findViewById(R.id.userUploadView);
         userUploadView.setHasFixedSize(true);
@@ -110,6 +114,7 @@ public class Doc_Upload extends AppCompatActivity {
                             Log.d(TAG, "onSuccess: "+ snapshot.getData().get("users"));
                         }
                         if(users.contains(email)) {
+                            userUploadProgBar.setVisibility(View.VISIBLE);
                             Log.d(TAG, "onSuccess: Already Helped");
                             setDocsInGallery("News/"+id+"/userDocs/users/"+email, storagePath, userGallery);
                         }
@@ -119,6 +124,7 @@ public class Doc_Upload extends AppCompatActivity {
            uploadBtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
+                   uploadProgBar.setVisibility(View.VISIBLE);
                    if(imageUri == null){
                        Toast.makeText(Doc_Upload.this, "Choose an Image", Toast.LENGTH_SHORT).show();
                    }
@@ -166,6 +172,7 @@ public class Doc_Upload extends AppCompatActivity {
                                        @Override
                                        public void onFailure(@NonNull Exception e) {
                                            Toast.makeText(Doc_Upload.this, "Error while uploading file", Toast.LENGTH_SHORT).show();
+                                           userUploadProgBar.setVisibility(View.GONE);
                                        }
                                    });
                        }
@@ -185,6 +192,7 @@ public class Doc_Upload extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(Doc_Upload.this, "Firebase Storage updated Successfully", Toast.LENGTH_SHORT).show();
+                        uploadProgBar.setVisibility(View.GONE);
                     }
                 });
     }
@@ -210,6 +218,7 @@ public class Doc_Upload extends AppCompatActivity {
                                                 userGallery.add(new galleryData(uploadPhoto[0], desc));
                                                 galleryAdapter adapter = new galleryAdapter(userGallery, Doc_Upload.this);
                                                 userUploadView.setAdapter(adapter);
+                                                userUploadProgBar.setVisibility(View.GONE);
                                             }
                                         });
                             } catch (IOException e) {
