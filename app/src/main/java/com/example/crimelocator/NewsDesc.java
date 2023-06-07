@@ -109,6 +109,14 @@ public class NewsDesc extends AppCompatActivity {
             }
         });
 
+        adminHelpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsDesc.this,Helped_User_List.class));
+                finish();
+            }
+        });
+
 
         Log.d(TAG, "onCreate: "+ id + " " + email);
         setCoverImage("News/"+id+"/cover.jpg", coverImage);
