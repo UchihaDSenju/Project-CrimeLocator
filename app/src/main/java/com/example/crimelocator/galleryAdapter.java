@@ -10,11 +10,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHolder>{
-    galleryData[]  galleryData;
+    ArrayList<galleryData> gallery;
     Context context;
-    public galleryAdapter(galleryData[] galleryData,NewsDesc newsDesc) {
-     this.galleryData=galleryData;
+    public galleryAdapter(ArrayList<galleryData> gallery, NewsDesc newsDesc) {
+     this.gallery = gallery;
      this.context=newsDesc;
 
     }
@@ -31,8 +33,8 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-      final galleryData galleryDataList= galleryData[position];
-      holder.galleryImage.setImageResource(galleryDataList.getGalleryImage());
+      final galleryData galleryDataList= gallery.get(position);
+      holder.galleryImage.setImageBitmap(galleryDataList.getGalleryImage());
 
       holder.itemView.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -47,7 +49,7 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return galleryData.length;
+        return gallery.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
