@@ -98,22 +98,22 @@
 
     <Button
 
-            android:layout_alignParentBottom="true"
-            android:id="@+id/helpButton"
-            android:layout_width="match_parent"
-        android:layout_marginRight="30dp"
+        android:id="@+id/helpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
 
         android:layout_centerInParent="true"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#CA7A03"
-            android:fontFamily="@font/sigmar_one"
-            android:text="I WOULD LIKE TO HELP"
-            android:textSize="15dp"
-            app:cornerRadius="6dp" />
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#CA7A03"
+        android:fontFamily="@font/sigmar_one"
+        android:text="I WOULD LIKE TO HELP"
+        android:textSize="15dp"
+        app:cornerRadius="6dp" />
     <Button
 
         android:layout_alignParentBottom="true"
-        android:id="@+id/adminhelpButton"
+        android:id="@+id/adminHelpButton"
         android:layout_width="match_parent"
         android:layout_marginRight="30dp"
         android:visibility="gone"

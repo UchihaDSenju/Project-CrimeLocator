@@ -50,12 +50,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
 
              Intent intent = new Intent(context ,NewsDesc.class);
-             String email = intent.getStringExtra("EMAIL");
              intent.putExtra("TITLE",newsDataList.getNewsTitle())
                      .putExtra("DESC", newsDataList.getNewsDesc())
                      .putExtra("DATE", newsDataList.getNewsTime())
                      .putExtra("ID", newsDataList.getNewsId())
-                     .putExtra("EMAIL", newsDataList.getEmail());
+                     .putExtra("EMAIL", newsDataList.getEmail())
+                     .putExtra("ADMIN", newsDataList.isAdmin());
              context.startActivity(intent);
          }
 

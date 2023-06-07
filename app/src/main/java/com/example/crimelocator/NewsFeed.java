@@ -125,11 +125,6 @@ public class NewsFeed extends AppCompatActivity {
                 alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-//                        FirebaseAuth.getInstance().signOut();
-//                        Intent intent = new Intent(NewsFeed.this,MainActivity.class);
-//                        startActivity(intent);
-//                        Toast.makeText(NewsFeed.this,"Successfully Logout",Toast.LENGTH_SHORT).show();
-//                        finish();
                         signOut();
                     }
                 });
@@ -169,7 +164,7 @@ public class NewsFeed extends AppCompatActivity {
                                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                 bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                                                 Log.d(TAG, "onSuccess: fetched Image");
-                                                data.add(new NewsData(newsFeed.get("title").toString(),day,bitmap,newsFeed.get("desc").toString(), newsFeed.get("id").toString(), email));
+                                                data.add(new NewsData(newsFeed.get("title").toString(),day,bitmap,newsFeed.get("desc").toString(), newsFeed.get("id").toString(), email, isAdmin));
                                                 newsFeedRV.setAdapter(adapter);
                                                 Log.d(TAG, "Image id: " + newsFeed.get("id").toString());
                                                 progressBar.setVisibility(View.GONE);

@@ -57,7 +57,7 @@ public class NewsDesc extends AppCompatActivity {
         String date = dataIntent.getStringExtra("DATE");
         String id = dataIntent.getStringExtra("ID");
         String email = dataIntent.getStringExtra("EMAIL");
-
+        boolean isAdmin = dataIntent.getBooleanExtra("ADMIN", false);
 
 
         newsTitle =findViewById(R.id.newsDescTitle);
@@ -65,11 +65,16 @@ public class NewsDesc extends AppCompatActivity {
         newsDate = findViewById(R.id.newsDescDate);
         coverImage =findViewById(R.id.imageDesc);
         helpBtn =findViewById(R.id.helpButton);
-        adminHelpBtn =findViewById(R.id.adminhelpButton);
+        adminHelpBtn =findViewById(R.id.adminHelpButton);
 
         galleryView=findViewById(R.id.galleryView);
         galleryView.setHasFixedSize(true);
         galleryView.setLayoutManager(new LinearLayoutManager(this));
+
+        if(isAdmin){
+            helpBtn.setVisibility(View.GONE);
+            adminHelpBtn.setVisibility(View.VISIBLE);
+        }
 
         ArrayList<galleryData> gallery = new ArrayList<>();
 //        gallery.add(new galleryData(R.drawable.bg));

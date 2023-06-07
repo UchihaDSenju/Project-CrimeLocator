@@ -9,32 +9,30 @@ public class NewsData {
     private String newsDesc;
     private Bitmap[] newsImage;
     private String email;
+    private boolean isAdmin;
 
 
-    public NewsData(String newsTitle, String newsTime, Bitmap[] newsImage, String newsDesc, String newsId, String email) {
+    public NewsData(String newsTitle, String newsTime, Bitmap[] newsImage, String newsDesc, String newsId, String email, boolean isAdmin) {
         this.newsTitle = newsTitle;
         this.newsTime = newsTime;
         this.newsImage = newsImage;
         this.newsDesc = newsDesc;
         this.newsId = newsId;
         this.email = email;
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public String getNewsTitle() {
         return newsTitle;
     }
 
-//    public void setNewsTitle(String newsTitle) {
-//        this.newsTitle = newsTitle;
-//    }
-
     public String getNewsTime() {
         return newsTime;
     }
-
-//    public void setNewsTime(String newsTime) {
-//        this.newsTime = newsTime;
-//    }
 
     public String getNewsDesc() {
         return newsDesc;
@@ -48,19 +46,8 @@ public class NewsData {
         return newsId;
     }
 
-//    public void setNewsId(String newsId) {
-//        this.newsId = newsId;
-//    }
-//
-//    public void setNewsDesc(String newsDesc) {
-//        this.newsDesc = newsDesc;
-//    }
-
     public Bitmap getNewsImage() {
         return newsImage[0];
     }
 
-//    public void setNewsImage(Bitmap[] newsImage) {
-//        this.newsImage = newsImage;
-//    }
 }
