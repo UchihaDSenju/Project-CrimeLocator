@@ -155,6 +155,7 @@ public class Doc_Upload extends AppCompatActivity {
                                                                db.collection(dbPath)
                                                                        .document("userHelps")
                                                                        .set(usersList);
+                                                               setFirestoreEntry(db, "News/" + id + "/userDocs/users/"+email, docName, docDesc);
                                                            }
                                                        }
                                                    });
