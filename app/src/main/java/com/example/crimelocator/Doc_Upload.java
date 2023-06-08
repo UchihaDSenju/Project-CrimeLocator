@@ -122,8 +122,8 @@ public class Doc_Upload extends AppCompatActivity {
                    uploadProgBar.setVisibility(View.VISIBLE);
                    desc=descEditText.getText().toString();
 
-                   if(imageUri == null || desc.isEmpty() || file.isEmpty() ){
-                       Toast.makeText(Doc_Upload.this, "filename,image and description not be empty", Toast.LENGTH_SHORT).show();
+                   if(imageUri == null || desc.isEmpty()){
+                       Toast.makeText(Doc_Upload.this, "Image and description not be empty", Toast.LENGTH_SHORT).show();
                        uploadProgBar.setVisibility(View.GONE);
                    }
                    else{
