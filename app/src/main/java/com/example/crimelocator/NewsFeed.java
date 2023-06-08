@@ -98,6 +98,57 @@ public class NewsFeed extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                adapter.newsData.clear();
+                progressBar.setVisibility(View.VISIBLE);
+                db.collection("News")
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                Log.d("", "onSuccess: getting Documents");
+                                List<DocumentSnapshot> snapshots = queryDocumentSnapshots.getDocuments();
+                                for(DocumentSnapshot snapshot : snapshots){
+                                    Map<String, Object> newsFeed = snapshot.getData();
+                                    String day = getDate((Timestamp) newsFeed.get("date_created"));
+//                            Log.d(TAG, "onSuccess: " + newsFeed);
+                                    ref = storage.getReference("News/"+newsFeed.get("id").toString()+"/cover.jpg");
+                                    final Bitmap[] bitmap = new Bitmap[1];
+                                    try {
+                                        File localFile = File.createTempFile("temp", ".jpg");
+
+                                        ref.getFile(localFile)
+                                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                        bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                        Log.d(TAG, "onSuccess: fetched Image");
+                                                        data.add(new NewsData(newsFeed.get("title").toString(),day,bitmap,newsFeed.get("desc").toString(), newsFeed.get("id").toString(), email, isAdmin));
+                                                        newsFeedRV.setAdapter(adapter);
+                                                        Log.d(TAG, "Image id: " + newsFeed.get("id").toString());
+                                                        progressBar.setVisibility(View.GONE);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(NewsFeed.this, "Error in fetching Image" + e, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "onSuccess: " + bitmap.getClass());
+                                }
+                                Log.d(TAG, "onSuccess: setting adapter");
+//                        newsFeedRV.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("", "onFailure: ",e);
+                            }
+                        });
 
                 Toast.makeText(NewsFeed.this,"Refreshed",Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
