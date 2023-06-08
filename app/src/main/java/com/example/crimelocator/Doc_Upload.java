@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,11 +50,12 @@ public class Doc_Upload extends AppCompatActivity {
 
     String file,desc;
     Uri imageUri;
-
+    ImageView userUploadCoverImage;
     Button chooseBtn, uploadBtn;
     TextView fileName;
     EditText descEditText;
     ProgressBar uploadProgBar,userUploadProgBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class Doc_Upload extends AppCompatActivity {
         chooseBtn = findViewById(R.id.chooseButton);
         uploadBtn = findViewById(R.id.uploadButton);
         fileName = findViewById(R.id.fileName);
+        userUploadCoverImage = findViewById(R.id.userUploadCoverImage);
         descEditText = findViewById(R.id.descEditText);
         uploadProgBar = findViewById(R.id.uploadProgBar);
         userUploadProgBar = findViewById(R.id.userUploadProgBar);
