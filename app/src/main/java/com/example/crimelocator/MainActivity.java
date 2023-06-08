@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin("admin@casemate.com","admin@23");
+                    firebaseSignin(email,password);
                 }
             }
         });
