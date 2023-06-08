@@ -66,9 +66,10 @@ public class AdminGalleryEdit extends AppCompatActivity {
         adminGallerySetImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                adminGallerySetImage.setVisibility(View.VISIBLE);
 
                 desc = adminGalleryImageDesc.getText().toString();
-                if(desc.isEmpty())  //coverImage==null will come here after creating coverImage.
+                if(desc.isEmpty() || image == null)  //coverImage==null will come here after creating coverImage.
                 {
                     Toast.makeText(AdminGalleryEdit.this, "image and description not be empty", Toast.LENGTH_SHORT).show();
                 }
@@ -91,6 +92,7 @@ public class AdminGalleryEdit extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Toast.makeText(AdminGalleryEdit.this, "Gallery Image Set", Toast.LENGTH_SHORT).show();
+                                                    adminGalleryProgBar.setVisibility(View.GONE);
                                                 }
                                             });
                                 }
