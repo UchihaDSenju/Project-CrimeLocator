@@ -184,20 +184,7 @@
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
 
-            <!--        <Button-->
-            <!--            android:id="@+id/adminLogin"-->
-
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_marginTop="40dp"-->
-
-            <!--            android:backgroundTint="#4CAF50"-->
-            <!--            android:text="admin login"-->
-            <!--            android:textSize="20dp"-->
-            <!--            app:cornerRadius="20dp"-->
-            <!--            app:icon="@drawable/ic_baseline_admin_panel_settings_24"-->
-            <!--            app:iconTint="#ffffff" />-->
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

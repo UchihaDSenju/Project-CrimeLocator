@@ -106,7 +106,7 @@ public class NewsDesc extends AppCompatActivity {
                         .putExtra("ID", id)
                         .putExtra("EMAIL", email);
                 startActivity(intent);
-                finish();
+
 //                adminhelpbtn.setVisibility(View.VISIBLE);
 //                helpBtn.setVisibility(View.GONE);
             }
@@ -116,7 +116,7 @@ public class NewsDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(NewsDesc.this,Helped_User_List.class));
-                finish();
+
             }
         });
 

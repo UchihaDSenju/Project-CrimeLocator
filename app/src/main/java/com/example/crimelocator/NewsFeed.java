@@ -91,7 +91,7 @@ public class NewsFeed extends AppCompatActivity {
             userWelcome.setText("Welcome User");
             signOut();
         }
-        else if(username == "AdminCM") userWelcome.setText("Welcome Admin");
+        if(username == "AdminCM") userWelcome.setText("Welcome Admin");
         else userWelcome.setText("Welcome "+username);
 
 
@@ -160,7 +160,6 @@ public class NewsFeed extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(NewsFeed.this, AdminAddNews.class));
-                finish();
             }
         });
 

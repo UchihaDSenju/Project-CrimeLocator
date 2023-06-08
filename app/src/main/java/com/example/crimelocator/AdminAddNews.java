@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class AdminAddNews extends AppCompatActivity {
     TextView adminNewsTitle;
     ImageView adminCoverImageView;
     EditText adminNewsDesc;
+    ProgressBar createNewsProgBar;
 
     Uri coverImage;
 
@@ -57,6 +59,7 @@ public class AdminAddNews extends AppCompatActivity {
         adminCreateNews = findViewById(R.id.adminCreateNews);
         adminCoverImageView = findViewById(R.id.adminCoverImageView);
         adminNewsDesc = findViewById(R.id.adminDesc);
+        createNewsProgBar = findViewById(R.id.createNewsProgBar);
 
         adminSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,22 +73,33 @@ public class AdminAddNews extends AppCompatActivity {
         adminCreateNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                createNewsProgBar.setVisibility(View.VISIBLE);
                 title = adminNewsTitle.getText().toString();
                 desc = adminNewsDesc.getText().toString();
                 Date date = new Date();
 
+              if(desc.isEmpty() || title.isEmpty() || coverImage == null )
+              {
+                  Log.d(TAG, "onClick: "+ title);
+                  Toast.makeText(AdminAddNews.this, "title,image description not be empty", Toast.LENGTH_SHORT).show();
+                  createNewsProgBar.setVisibility(View.GONE);
+              }
 
+
+              else{
                 Toast.makeText(AdminAddNews.this, "Creating News", Toast.LENGTH_SHORT).show();
+                  createNewsProgBar.setVisibility(View.VISIBLE);
                 db.collection("NewsId")
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 for(DocumentSnapshot snapshot: queryDocumentSnapshots){
+                                    createNewsProgBar.setVisibility(View.VISIBLE);
                                     Toast.makeText(AdminAddNews.this, "Generating News ID", Toast.LENGTH_SHORT).show();
                                     newsId = Integer.parseInt(snapshot.getData().get("id").toString());
                                     Log.d(TAG, "onSuccess: Generated Id number "+ newsId);
+                                    createNewsProgBar.setVisibility(View.VISIBLE);
                                     Toast.makeText(AdminAddNews.this, "Generated News ID Please Wait...", Toast.LENGTH_SHORT).show();
 
                                     ref = storage.getReference("News/"+newsId+"/cover.jpg");
@@ -104,6 +118,8 @@ public class AdminAddNews extends AppCompatActivity {
                                                 public void onSuccess(Void unused) {
                                                     ref.putFile(coverImage);
                                                     Toast.makeText(AdminAddNews.this, "News Created", Toast.LENGTH_SHORT).show();
+                                                    createNewsProgBar.setVisibility(View.GONE);
+
                                                 }
                                             });
                                 }
@@ -114,8 +130,10 @@ public class AdminAddNews extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.d(TAG, "onFailure: "+e);
+                                createNewsProgBar.setVisibility(View.GONE);
                             }
                         });
+              }
             }
         });
 

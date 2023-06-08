@@ -3,14 +3,17 @@ package com.example.crimelocator;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +37,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView signUpBtn, forgotPasswordBtn;
-    Button signInBtn, adminLogin;
+    TextView signUpBtn,forgotPasswordBtn;
+    Button signInBtn;
     TextInputEditText email, password;
     ProgressBar mainProgressBar;
 
@@ -65,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         signUpBtn = findViewById(R.id.signUpBtn);
         signInBtn = findViewById(R.id.signInBtn);
-       // adminLogin = findViewById(R.id.adminLogin);
-        forgotPasswordBtn = findViewById(R.id.forgotPasswordBtn);
+        forgotPasswordBtn = (TextView)findViewById(R.id.forgotPasswordBtn);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         mainProgressBar = findViewById(R.id.mainProgBar);
@@ -97,17 +99,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        forgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                View dialogView=getLayoutInflater().inflate(R.layout.forgot_dialog,null);
+                 EditText registerEmail=dialogView.findViewById(R.id.registerEmail);
 
-//        adminLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//              //  startActivity(new Intent(MainActivity.this, adminlogin.class));
-//            }
-//        });//ADMIN LOGIN
-    }
+                builder.setView(dialogView);
+                AlertDialog dialog=builder.create();
+
+                dialogView.findViewById(R.id.buttonReset).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String userEmail=registerEmail.getText().toString();
+                        if(userEmail.isEmpty()) {
+                            Toast.makeText(MainActivity.this,"Enter Your Registered Email id",Toast.LENGTH_SHORT).show();return;}
+
+                        auth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this,"open Gmail and Check Your Mail",Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                    //createNotify();
+                                }
+                                else{
+                                    Toast.makeText(MainActivity.this,"Unable to send ,failed.Use Registered Email",Toast.LENGTH_SHORT).show();
+                                }
+                            }});
+                    }});
+                dialogView.findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }});
+                dialog.show();
+            }});
+         }
+
     public void firebaseSignin(String email, String password){
-
-
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -127,16 +158,16 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void moveToNewsFeed(String email){
-        db.document("Users/"+email)
+    public void moveToNewsFeed(String email) {
+        db.document("Users/" + email)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         String username;
                         username = documentSnapshot.get("username").toString();
-                        boolean isAdmin = (boolean)documentSnapshot.get("isAdmin");
-                        Log.d(TAG, "onSuccess: Username Retrieved "+username);
+                        boolean isAdmin = (boolean) documentSnapshot.get("isAdmin");
+                        Log.d(TAG, "onSuccess: Username Retrieved " + username);
                         mainProgressBar.setVisibility(View.GONE);
                         Toast.makeText(MainActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, NewsFeed.class);
@@ -148,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
     }
+
 }
 
 //TODO
