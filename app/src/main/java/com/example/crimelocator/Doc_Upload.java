@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,9 +50,8 @@ public class Doc_Upload extends AppCompatActivity {
 
     String file,desc;
     Uri imageUri;
-    ImageView userUploadCoverImage;
+    ImageView userUploadImage;
     Button chooseBtn, uploadBtn;
-    TextView fileName;
     EditText descEditText;
     ProgressBar uploadProgBar,userUploadProgBar;
 
@@ -78,8 +77,7 @@ public class Doc_Upload extends AppCompatActivity {
 
         chooseBtn = findViewById(R.id.chooseButton);
         uploadBtn = findViewById(R.id.uploadButton);
-        fileName = findViewById(R.id.fileName);
-        userUploadCoverImage = findViewById(R.id.userUploadCoverImage);
+        userUploadImage = findViewById(R.id.userUploadCoverImage);
         descEditText = findViewById(R.id.descEditText);
         uploadProgBar = findViewById(R.id.uploadProgBar);
         userUploadProgBar = findViewById(R.id.userUploadProgBar);
@@ -123,7 +121,6 @@ public class Doc_Upload extends AppCompatActivity {
                public void onClick(View view) {
                    uploadProgBar.setVisibility(View.VISIBLE);
                    desc=descEditText.getText().toString();
-                   file=fileName.getText().toString();
 
                    if(imageUri == null || desc.isEmpty() || file.isEmpty() ){
                        Toast.makeText(Doc_Upload.this, "filename,image and description not be empty", Toast.LENGTH_SHORT).show();
@@ -131,7 +128,8 @@ public class Doc_Upload extends AppCompatActivity {
                    }
                    else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
-                           String docName = fileName.getText().toString();
+                           Date date = new Date();
+                           String docName = date.toString();
                            String docDesc = descEditText.getText().toString();
                            ref = storage.getReference("News/" + id + "/userHelps/" + email + "/"+docName+".jpg");
                            ref.putFile(imageUri)
@@ -236,6 +234,7 @@ public class Doc_Upload extends AppCompatActivity {
             case 10:
                 if (resultCode == RESULT_OK) {
                     imageUri = data.getData();
+                    userUploadImage.setImageURI(imageUri);
                 }
                 break;
         }
