@@ -50,7 +50,7 @@ public class Doc_Upload extends AppCompatActivity {
     ArrayList<String> users = new ArrayList<>();
     ArrayList<galleryData> userGallery = new ArrayList<>();
 
-
+    String file,desc;
     Uri imageUri;
 
     Button chooseBtn, uploadBtn;
@@ -125,16 +125,14 @@ public class Doc_Upload extends AppCompatActivity {
                @Override
                public void onClick(View view) {
                    uploadProgBar.setVisibility(View.VISIBLE);
-                   if(imageUri == null){
-                       Toast.makeText(Doc_Upload.this, "Choose an Image", Toast.LENGTH_SHORT).show();
+                   desc=descEditText.getText().toString();
+                   file=fileName.getText().toString();
+
+                   if(imageUri == null || desc.isEmpty() || file.isEmpty() ){
+                       Toast.makeText(Doc_Upload.this, "filename,image and description not be empty", Toast.LENGTH_SHORT).show();
                        uploadProgBar.setVisibility(View.GONE);
                    }
                    else{
-                       if(fileName.getText() == null){
-                           Toast.makeText(Doc_Upload.this, "Enter a file name", Toast.LENGTH_SHORT).show();
-                           uploadProgBar.setVisibility(View.GONE);
-                       }
-                       else{
                            Toast.makeText(Doc_Upload.this, "File Upload Ready", Toast.LENGTH_SHORT).show();
                            String docName = fileName.getText().toString();
                            String docDesc = descEditText.getText().toString();
@@ -179,7 +177,7 @@ public class Doc_Upload extends AppCompatActivity {
                                    });
                        }
                    }
-               }
+
            });
     }
 

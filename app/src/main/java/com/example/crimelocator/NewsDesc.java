@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +43,7 @@ public class NewsDesc extends AppCompatActivity {
 
     Button helpBtn, adminHelpBtn;
     ImageView coverImage;
-    TextView newsTitle, newsDesc, newsDate;
+    TextView newsTitle, newsDesc, newsDate,adminGalleryEdit;
     RecyclerView galleryView;
     ProgressBar galleryProgBar;
 
@@ -65,10 +67,22 @@ public class NewsDesc extends AppCompatActivity {
         newsTitle =findViewById(R.id.newsDescTitle);
         newsDesc = findViewById(R.id.newsDesc);
         newsDate = findViewById(R.id.newsDescDate);
+        adminGalleryEdit = findViewById(R.id.adminGalleryEdit);
         coverImage =findViewById(R.id.imageDesc);
         helpBtn =findViewById(R.id.helpButton);
         adminHelpBtn =findViewById(R.id.adminHelpButton);
         galleryProgBar = findViewById(R.id.galleryProgBar);
+
+        SpannableString content = new SpannableString("edit");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        adminGalleryEdit.setText(content);
+
+        adminGalleryEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsDesc.this,AdminGalleryEdit.class));
+            }
+        });
 
         galleryView=findViewById(R.id.galleryView);
         galleryView.setHasFixedSize(true);
@@ -77,6 +91,7 @@ public class NewsDesc extends AppCompatActivity {
         if(isAdmin){
             helpBtn.setVisibility(View.GONE);
             adminHelpBtn.setVisibility(View.VISIBLE);
+            adminGalleryEdit.setVisibility(View.VISIBLE);
         }
 
         ArrayList<galleryData> gallery = new ArrayList<>();

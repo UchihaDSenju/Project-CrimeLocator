@@ -69,6 +69,16 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
 
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="edit"
+                 android:id="@+id/adminGalleryEdit"
+                 android:textAlignment="center"
+                 android:visibility="gone"
+                 android:textColor="#EC0A0A"
+                 />
+
             <ProgressBar
                 android:layout_width="50dp"
                 android:layout_height="50dp"
