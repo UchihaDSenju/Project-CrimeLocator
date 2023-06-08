@@ -28,16 +28,23 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
+            <ImageView
+                android:id="@+id/userUploadCoverImage"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_margin="10dp"
+                android:background="@color/black"
+                android:scaleType="centerCrop" />
 
             <Button
                 android:id="@+id/chooseButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#CA7A03"
                 android:fontFamily="@font/nunito"
-                android:text="Choose file"
+                android:text="Choose Image"
                 android:textSize="20dp"
                 app:cornerRadius="6dp" />
             <EditText
