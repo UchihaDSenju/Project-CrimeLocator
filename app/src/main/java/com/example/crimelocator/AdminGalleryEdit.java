@@ -66,7 +66,7 @@ public class AdminGalleryEdit extends AppCompatActivity {
         adminGallerySetImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adminGallerySetImage.setVisibility(View.VISIBLE);
+                adminGalleryProgBar.setVisibility(View.VISIBLE);
 
                 desc = adminGalleryImageDesc.getText().toString();
                 if(desc.isEmpty() || image == null)  //coverImage==null will come here after creating coverImage.
