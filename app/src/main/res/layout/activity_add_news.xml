@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/primary_bg"
     android:scrollbars="none"
-    tools:context=".Add_News">
+    tools:context=".AdminAddNews">
 
 
         <LinearLayout
@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/adminTitle"
+                android:id="@+id/adminNewsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
@@ -27,7 +27,7 @@
 
 
             <ImageView
-                android:id="@+id/adminImage"
+                android:id="@+id/adminCoverImageView"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:layout_marginTop="20dp"
@@ -57,14 +57,15 @@
       android:hint="description here"
       android:textAlignment="center"
       app:boxStrokeColor="@color/black">
+
       <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/adminDesc"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:id="@+id/adminDesc"
+          android:gravity="top"
           android:inputType="textMultiLine"
           android:lines="8"
-          android:textColor="@color/black"
-          android:gravity="top"/>
+          android:textColor="@color/black" />
 
   </com.google.android.material.textfield.TextInputLayout>
             <Button

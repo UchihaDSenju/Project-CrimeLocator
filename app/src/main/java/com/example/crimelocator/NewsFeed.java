@@ -89,7 +89,7 @@ public class NewsFeed extends AppCompatActivity {
         if(username == null) {
             Toast.makeText(context, "No user found", Toast.LENGTH_SHORT).show();
             userWelcome.setText("Welcome User");
-//            signOut();
+            signOut();
         }
         else if(username == "AdminCM") userWelcome.setText("Welcome Admin");
         else userWelcome.setText("Welcome "+username);
@@ -108,7 +108,7 @@ public class NewsFeed extends AppCompatActivity {
         adminNewsAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NewsFeed.this,Add_News.class));
+                startActivity(new Intent(NewsFeed.this, AdminAddNews.class));
                 finish();
             }
         });
