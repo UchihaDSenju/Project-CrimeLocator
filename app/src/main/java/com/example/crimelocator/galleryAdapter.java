@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHolder>{
-    ArrayList<galleryData> gallery;
+    ArrayList<GalleryData> gallery;
     Context context;
-    public galleryAdapter(ArrayList<galleryData> gallery, Context context) {
+    public galleryAdapter(ArrayList<GalleryData> gallery, Context context) {
      this.gallery = gallery;
      this.context=context;
 
@@ -34,7 +34,7 @@ public class galleryAdapter extends RecyclerView.Adapter<galleryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-      final galleryData galleryDataList= gallery.get(position);
+      final GalleryData galleryDataList= gallery.get(position);
       holder.galleryImage.setImageBitmap(galleryDataList.getGalleryImage());
       holder.galleryDesc.setText(galleryDataList.getDesc());
 

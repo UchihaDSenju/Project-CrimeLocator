@@ -47,7 +47,7 @@ public class HelpedUserList extends AppCompatActivity {
         helpedUserView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<UserData> userList = new ArrayList<>();
-        UserAdapter adapter =new UserAdapter(userList, HelpedUserList.this);
+        UserAdapter adapter =new UserAdapter(userList, HelpedUserList.this, id);
 
         db.collection("News/"+id+"/userHelps")
                 .get()
