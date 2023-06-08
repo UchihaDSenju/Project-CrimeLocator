@@ -9,6 +9,24 @@
     tools:context=".HelpedUserListGallery">
 
 
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/helpedUserGalleryEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sigmar_one"
+        android:gravity="center"
+        android:text="Helped User Email"
+        android:textColor="#CA0E0E"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:id="@+id/helpedUserGalleryProgBar"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/helpedUserGalleyRV"
         android:layout_width="match_parent"

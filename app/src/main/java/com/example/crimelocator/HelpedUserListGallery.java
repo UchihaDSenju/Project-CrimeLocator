@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,19 +35,23 @@ public class HelpedUserListGallery extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference ref;
-
+    ProgressBar helpedUserGalleryProgBar;
     RecyclerView helpedUserGalleyRV;
+    TextView helpedUserGalleryEmail;
 
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helped_user_list_gallery);
         getSupportActionBar().hide();
-
+        helpedUserGalleryEmail = findViewById(R.id.helpedUserGalleryEmail);
+        helpedUserGalleryProgBar =findViewById(R.id.helpedUserGalleryProgBar);
+        helpedUserGalleryProgBar.setVisibility(View.VISIBLE);
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
         String id = intent.getStringExtra("ID");
+        helpedUserGalleryEmail.setText(email);
         Log.d(TAG, "onCreate: " + email + " " + id);
 
         helpedUserGalleyRV = findViewById(R.id.helpedUserGalleyRV);
@@ -75,7 +82,7 @@ public class HelpedUserListGallery extends AppCompatActivity {
                                                 userGallery.add(new GalleryData(uploadPhoto[0], desc));
                                                 galleryAdapter adapter = new galleryAdapter(userGallery, HelpedUserListGallery.this);
                                                 helpedUserGalleyRV.setAdapter(adapter);
-//                                                userUploadProgBar.setVisibility(View.GONE);
+                                               helpedUserGalleryProgBar.setVisibility(View.GONE);
                                             }
                                         });
                             } catch (IOException e) {
