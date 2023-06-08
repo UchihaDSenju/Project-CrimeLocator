@@ -88,15 +88,15 @@ public class Doc_Upload extends AppCompatActivity {
         userUploadView.setHasFixedSize(true);
         userUploadView.setLayoutManager(new LinearLayoutManager(this));
 
-        ActivityCompat.requestPermissions(Doc_Upload.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                PackageManager.PERMISSION_GRANTED);
 
 
            chooseBtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
 
+//                   ActivityCompat.requestPermissions(Doc_Upload.this,
+//                           new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                           PackageManager.PERMISSION_GRANTED);
 
                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //ACTION_GET_CONTENT
                    intent.setType("image/*");

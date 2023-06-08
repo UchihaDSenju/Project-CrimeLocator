@@ -1,6 +1,8 @@
 package com.example.crimelocator;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +42,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"email clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Helped User Gallery",Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context,HelpedUserListGallery.class));
             }
         });
 
