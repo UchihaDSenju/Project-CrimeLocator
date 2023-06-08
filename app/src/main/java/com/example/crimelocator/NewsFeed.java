@@ -160,7 +160,6 @@ public class NewsFeed extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(NewsFeed.this, AdminAddNews.class));
-                finish();
             }
         });
 
