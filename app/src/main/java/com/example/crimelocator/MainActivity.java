@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         signUpBtn = findViewById(R.id.signUpBtn);
         signInBtn = findViewById(R.id.signInBtn);
-        forgotPasswordBtn = (TextView)findViewById(R.id.forgotPasswordBtn);
+        forgotPasswordBtn = findViewById(R.id.forgotPasswordBtn);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         mainProgressBar = findViewById(R.id.mainProgBar);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                }
                 else{
-                    firebaseSignin(email,password);
+                    firebaseSignin("admin@casemate.com","admin@23");
                 }
             }
         });

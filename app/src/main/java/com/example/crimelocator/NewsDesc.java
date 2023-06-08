@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,7 +95,7 @@ public class NewsDesc extends AppCompatActivity {
             adminGalleryEdit.setVisibility(View.VISIBLE);
         }
 
-        ArrayList<galleryData> gallery = new ArrayList<>();
+        ArrayList<GalleryData> gallery = new ArrayList<>();
 
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +116,7 @@ public class NewsDesc extends AppCompatActivity {
 
                 Intent intent = new Intent(NewsDesc.this, HelpedUserList.class);
                 intent.putExtra("ID", id);
+                Toast.makeText(NewsDesc.this, "Fetched id"+id, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
             }
@@ -156,7 +158,7 @@ public class NewsDesc extends AppCompatActivity {
         }
     }
 
-    public void setGallery(String id, ArrayList<galleryData> gallery){
+    public void setGallery(String id, ArrayList<GalleryData> gallery){
 
         db.collection("News/"+id+"/gallery")
                 .get()
@@ -174,7 +176,7 @@ public class NewsDesc extends AppCompatActivity {
                     }
                 });
     }
-    public void setGalleryImage(String id, String image, ArrayList<galleryData> gallery, String desc){
+    public void setGalleryImage(String id, String image, ArrayList<GalleryData> gallery, String desc){
 
         galleryProgBar.setVisibility(View.VISIBLE);
         ref = storage.getReference("News/"+id+"/gallery/"+image+".jpg");
@@ -189,7 +191,7 @@ public class NewsDesc extends AppCompatActivity {
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Log.d(TAG, "onSuccess: Fetched Image "+image);
                             galleryPhoto[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                            gallery.add(new galleryData(galleryPhoto[0], desc));
+                            gallery.add(new GalleryData(galleryPhoto[0], desc));
                             Log.d(TAG, "setGalleryImage: Setting up image "+image);
                             galleryAdapter adapter = new galleryAdapter(gallery, NewsDesc.this);
                             galleryView.setAdapter(adapter);

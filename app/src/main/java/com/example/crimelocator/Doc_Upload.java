@@ -5,18 +5,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.Manifest;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +44,7 @@ public class Doc_Upload extends AppCompatActivity {
     StorageReference ref;
     RecyclerView userUploadView;
     ArrayList<String> users = new ArrayList<>();
-    ArrayList<galleryData> userGallery = new ArrayList<>();
+    ArrayList<GalleryData> userGallery = new ArrayList<>();
 
     String file,desc;
     Uri imageUri;
@@ -94,13 +90,10 @@ public class Doc_Upload extends AppCompatActivity {
                @Override
                public void onClick(View v) {
 
-//                   ActivityCompat.requestPermissions(Doc_Upload.this,
-//                           new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                           PackageManager.PERMISSION_GRANTED);
-
                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //ACTION_GET_CONTENT
                    intent.setType("image/*");
                    startActivityForResult(intent,10);  //reqCode
+
                }
            });
 
@@ -197,7 +190,7 @@ public class Doc_Upload extends AppCompatActivity {
                 });
     }
 
-    private void setDocsInGallery(String dbPath, String storagePath, ArrayList<galleryData> userGallery) {
+    private void setDocsInGallery(String dbPath, String storagePath, ArrayList<GalleryData> userGallery) {
         db.collection(dbPath)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -215,7 +208,7 @@ public class Doc_Upload extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                 uploadPhoto[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                                userGallery.add(new galleryData(uploadPhoto[0], desc));
+                                                userGallery.add(new GalleryData(uploadPhoto[0], desc));
                                                 galleryAdapter adapter = new galleryAdapter(userGallery, Doc_Upload.this);
                                                 userUploadView.setAdapter(adapter);
                                                 userUploadProgBar.setVisibility(View.GONE);

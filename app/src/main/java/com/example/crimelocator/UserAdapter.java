@@ -2,7 +2,6 @@ package com.example.crimelocator;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     ArrayList<UserData> userData;
     Context context;
-    public UserAdapter(ArrayList<UserData> userData, HelpedUserList helped_user_list) {
+    String id;
+    public UserAdapter(ArrayList<UserData> userData, Context context, String id) {
         this.userData=userData;
-        this.context=helped_user_list;
+        this.context=context;
+        this.id = id;
 
 
     }
@@ -37,13 +38,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final UserData UserDataList= userData.get(position);
-        holder.helpedUserEmail.setText(UserDataList.getUserHelpText());
+        final UserData userDataList= userData.get(position);
+        holder.helpedUserEmail.setText(userDataList.getUser());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"Helped User Gallery",Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context,HelpedUserListGallery.class));
+                String email = userDataList.getUser();
+                Intent intent = new Intent(context, HelpedUserListGallery.class);
+                Toast.makeText(context, "Id:" + id, Toast.LENGTH_SHORT).show();
+                intent.putExtra("EMAIL", email);
+                intent.putExtra("ID", id);
+                context.startActivity(intent);
             }
         });
 

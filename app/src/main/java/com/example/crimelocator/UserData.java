@@ -1,17 +1,18 @@
 package com.example.crimelocator;
 
 public class UserData {
-    private String userHelpText;
+    private String user;
+    private String id;
 
-    public UserData(String userHelpText) {
-        this.userHelpText = userHelpText;
+    public UserData(String user) {
+        this.user = user;
     }
 
-    public String getUserHelpText() {
-        return userHelpText;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserHelpText(String userHelpText) {
-        this.userHelpText = userHelpText;
+    public String getId() {
+        return id;
     }
 }
