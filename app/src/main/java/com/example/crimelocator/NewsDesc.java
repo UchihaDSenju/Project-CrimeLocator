@@ -109,7 +109,7 @@ public class NewsDesc extends AppCompatActivity {
 
                 Intent intent = new Intent(NewsDesc.this, HelpedUserList.class);
                 intent.putExtra("ID", id);
-                Toast.makeText(NewsDesc.this, "Fetched id"+id, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NewsDesc.this, "Fetched id"+id, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
             }
