@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/adminGalleyCoverImage"
+            android:id="@+id/adminGalleyImage"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_marginTop="20dp"
@@ -48,7 +48,7 @@
             app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/adminGalleryDesc"
+                android:id="@+id/adminGalleryImageDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -68,11 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:id="@+id/adminGalleryCreateNews"
+            android:id="@+id/adminGallerySetImage"
             android:layout_margin="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#CA7A03"
-            android:text="Create News"
+            android:text="Set Image"
             android:textSize="15dp"
             android:fontFamily="@font/sigmar_one"
             android:textColor="@color/white"/>

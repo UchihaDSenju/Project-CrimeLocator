@@ -78,13 +78,6 @@ public class NewsDesc extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         adminGalleryEdit.setText(content);
 
-        adminGalleryEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NewsDesc.this,AdminGalleryEdit.class));
-            }
-        });
-
         galleryView=findViewById(R.id.galleryView);
         galleryView.setHasFixedSize(true);
         galleryView.setLayoutManager(new LinearLayoutManager(this));
@@ -119,6 +112,15 @@ public class NewsDesc extends AppCompatActivity {
                 Toast.makeText(NewsDesc.this, "Fetched id"+id, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
+            }
+        });
+
+        adminGalleryEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewsDesc.this, AdminGalleryEdit.class);
+                intent.putExtra("ID", id);
+                startActivity(intent);
             }
         });
 
