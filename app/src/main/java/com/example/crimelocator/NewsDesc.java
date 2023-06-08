@@ -80,23 +80,6 @@ public class NewsDesc extends AppCompatActivity {
         }
 
         ArrayList<galleryData> gallery = new ArrayList<>();
-//        gallery.add(new galleryData(R.drawable.bg));
-//        gallery.add(new galleryData(R.drawable.casemateback));
-//        gallery.add(new galleryData(R.drawable.back));
-//        gallery.add(new galleryData(R.drawable.demo3));
-//        gallery.add(new galleryData(R.drawable.crimecon));
-
-//        galleryData[] galleryData=new galleryData[]{
-//                new galleryData(R.drawable.bg),
-//                new galleryData(R.drawable.casemateback),
-//                new galleryData(R.drawable.back),
-//                new galleryData(R.drawable.demo3),
-//                new galleryData(R.drawable.crimecon),
-//        };
-
-//        galleryAdapter adapter =new galleryAdapter(gallery,NewsDesc.this);
-//        galleryView.setAdapter(galleryAdapter);
-
 
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,16 +90,15 @@ public class NewsDesc extends AppCompatActivity {
                         .putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
-//                adminhelpbtn.setVisibility(View.VISIBLE);
-//                helpBtn.setVisibility(View.GONE);
             }
         });
 
         adminHelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NewsDesc.this,Helped_User_List.class));
-                finish();
+                Intent intent = new Intent(NewsDesc.this, HelpedUserList.class);
+                intent.putExtra("ID", id);
+                startActivity(intent);
             }
         });
 
