@@ -117,6 +117,17 @@ public class AdminAddNews extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     ref.putFile(coverImage);
+//                                                    Map<String, Object> id = new HashMap<>();
+//                                                    id.put("id", newsId+1);
+//                                                    db.collection("NewsId")
+//                                                                    .document("NewsId")
+//                                                                            .set(id)
+//                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                                @Override
+//                                                                public void onSuccess(Void unused) {
+//                                                                    Toast.makeText(AdminAddNews.this, "News Created", Toast.LENGTH_SHORT).show();
+//                                                                }
+//                                                            });
                                                     Toast.makeText(AdminAddNews.this, "News Created", Toast.LENGTH_SHORT).show();
                                                     createNewsProgBar.setVisibility(View.GONE);
 

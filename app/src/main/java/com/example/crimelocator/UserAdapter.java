@@ -10,11 +10,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    UserData[] userData;
+    ArrayList<UserData> userData;
     Context context;
-    public UserAdapter(UserData[] userData,Helped_User_List helped_user_list) {
+    public UserAdapter(ArrayList<UserData> userData, HelpedUserList helped_user_list) {
         this.userData=userData;
         this.context=helped_user_list;
 
@@ -33,7 +35,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final UserData UserDataList= userData[position];
+        final UserData UserDataList= userData.get(position);
         holder.helpedUserEmail.setText(UserDataList.getUserHelpText());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return userData.length;
+        return userData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
